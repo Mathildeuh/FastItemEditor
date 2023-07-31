@@ -1,0 +1,4 @@
+name: FastItemEditor
+version: '${version}'
+main: fr.mathilde.FastItemEditor
+api-version: '1.20'
