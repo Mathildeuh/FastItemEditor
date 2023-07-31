@@ -132,15 +132,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
                     return ButtonAction.CLOSE_GUI;
                 });
 
-//        for (int i = 0; i < getSize(); i++) {
-//            if (getInventory().getItem(i) == null) {
-//                ItemStack book = new ItemBuilder(Material.ENCHANTED_BOOK).setName(" ").toItemStack();
-//                EnchantmentStorageMeta meta = (EnchantmentStorageMeta)book.getItemMeta();
-//                meta.addStoredEnchant(org.bukkit.enchantments.Enchantment.DURABILITY, 1, true);
-//                book.setItemMeta(meta);
-//                set(i, book);
-//            }
-//        }
+
     }
 
     private void editLore(Player player) {
