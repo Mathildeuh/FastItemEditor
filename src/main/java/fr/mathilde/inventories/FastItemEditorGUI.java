@@ -6,6 +6,7 @@ import fr.mathilde.utilities.ItemBuilder;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
@@ -88,6 +89,30 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
                 (player, action) -> {
                     editLore(player);
                     return ButtonAction.CLOSE_GUI;
+                });
+
+        set(21,
+                new ItemBuilder(Material.GLOW_ITEM_FRAME)
+                        .setName("§3Edit ITEM FLAGS")
+                        .setLore("§7Actual flags: §c" + stack.getItemMeta().getItemFlags())
+
+                        .toItemStack(),
+                (player, item) -> {
+                    String last_name = item.getItemMeta().hasDisplayName() ? item.getItemMeta().getDisplayName() : null;
+                    final ItemStack[] newStack = {new ItemBuilder(item).setName("§c§lNot implemented yet !").toItemStack()};
+                    set(21, newStack[0]);
+                    BukkitRunnable run = new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            newStack[0] = new ItemBuilder(item).setName(last_name).toItemStack();
+                            set(21, newStack[0]);
+                            createInventory();
+
+                        }
+                    };
+                    run.runTaskLater(plugin, 20);
+
+                    return ButtonAction.CANCEL;
                 });
         set(28,
                 new ItemBuilder(Material.ENCHANTING_TABLE)
