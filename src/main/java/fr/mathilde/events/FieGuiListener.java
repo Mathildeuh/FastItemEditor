@@ -1,7 +1,6 @@
 package fr.mathilde.events;
 
 import fr.mathilde.FastItemEditor;
-import fr.mathilde.commands.FieCommand;
 import fr.mathilde.inventories.FastItemEditorGUI;
 import fr.mathilde.utilities.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -14,8 +13,9 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+import static fr.mathilde.inventories.FastItemEditorGUI.openMainGui;
 
 public class FieGuiListener implements Listener {
 
@@ -35,11 +35,11 @@ public class FieGuiListener implements Listener {
     }
 
     @EventHandler
-    public void onChat(AsyncPlayerChatEvent e){
-        if(FastItemEditorGUI.playerLoreEdit.containsKey(e.getPlayer())){
+    public void onChat(AsyncPlayerChatEvent e) {
+        if (FastItemEditorGUI.playerLoreEdit.containsKey(e.getPlayer())) {
             e.setCancelled(true);
 
-            if (e.getMessage().equalsIgnoreCase("cancel")){
+            if (e.getMessage().equalsIgnoreCase("cancel")) {
                 FastItemEditorGUI.playerLoreEdit.remove(e.getPlayer());
                 reOpenMainGui(e.getPlayer());
 
@@ -64,11 +64,11 @@ public class FieGuiListener implements Listener {
     }
 
 
-    public void reOpenMainGui(Player player){
+    public void reOpenMainGui(Player player) {
         Bukkit.getScheduler().runTask(plugin, () -> {
 
             FastItemEditorGUI.playerLoreEdit.remove(player);
-            FieCommand.openMainGui(player);
+            openMainGui(player);
 
         });
 

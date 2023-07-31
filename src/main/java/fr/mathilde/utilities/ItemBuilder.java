@@ -155,7 +155,7 @@ public class ItemBuilder {
     /**
      * Sets infinity durability on the item by setting the durability to Short.MAX_VALUE.
      */
-    public ItemBuilder setUnbreakable(Boolean bool){
+    public ItemBuilder setUnbreakable(Boolean bool) {
         ItemMeta im = is.getItemMeta();
         im.setUnbreakable(bool);
         is.setItemMeta(im);

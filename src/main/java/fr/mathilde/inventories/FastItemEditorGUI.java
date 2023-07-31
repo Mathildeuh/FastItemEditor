@@ -3,38 +3,39 @@ package fr.mathilde.inventories;
 import dev.jcsoftware.minecraft.gui.GUI;
 import fr.mathilde.FastItemEditor;
 import fr.mathilde.utilities.ItemBuilder;
-import net.wesjd.anvilgui.AnvilGUI;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.*;
-
-import static fr.mathilde.commands.FieCommand.openMainGui;
-import static javax.swing.UIManager.get;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
-    FastItemEditor plugin;
+    public static HashMap<Player, ItemStack> playerLoreEdit = new HashMap<>();
+    static FastItemEditor plugin;
     ItemStack stack;
-
     String stackFormatedName;
-
 
     public FastItemEditorGUI(FastItemEditor plugin, ItemStack stack) {
         super(plugin);
 
-        this.plugin = plugin;
+        FastItemEditorGUI.plugin = plugin;
         this.stack = stack;
         this.stackFormatedName = stack.getType().name().toLowerCase().replaceAll("_", " ");
         createInventory();
     }
 
-    public static HashMap<Player, ItemStack> playerLoreEdit = new HashMap<>();
+    public static void openMainGui(Player player) {
+        FastItemEditor.guiAPI.openGUI(player, new FastItemEditorGUI(plugin, player.getItemInHand()));
+        String relocalizedName = player.getItemInHand().getType().name().toLowerCase().replaceAll("_", " ");
+
+        player.getOpenInventory()
+                .setTitle("§3Fast Item Editor §7- §2" + relocalizedName);
+
+    }
 
     private void createInventory() {
 
@@ -47,9 +48,10 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
                         .setLore("§7Actual name: §c" + actualName)
                         .toItemStack(),
                 (player, action) -> {
-                    openAnvilGui(player, actualName);
+                    AnvilGUI.openAnvilGui(player, actualName, plugin, true);
                     return ButtonAction.CANCEL;
                 });
+
         set(12,
                 new ItemBuilder(Material.STRUCTURE_VOID)
                         .setName("§3Unbreakable")
@@ -75,7 +77,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
             lore.set(i, "§c- §r" + s);
 
         }
-         if (lore.isEmpty()) {
+        if (lore.isEmpty()) {
             lore.add("§c- §fNo lore");
         }
         lore.add(0, "§7Actual lores: ");
@@ -120,7 +122,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
                         .toItemStack(),
                 (player, action) -> {
-                    FastItemEditor.guiAPI.openGUI(player, new editEnchantsGUI(plugin, player.getItemInHand()));
+                    FastItemEditor.guiAPI.openGUI(player, new EditEnchantsGUI(plugin, player.getItemInHand()));
                     return ButtonAction.CANCEL;
                 });
 
@@ -128,9 +130,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
                 new ItemBuilder(Material.BARRIER)
                         .setName("§cClose")
                         .toItemStack(),
-                (player, action) -> {
-                    return ButtonAction.CLOSE_GUI;
-                });
+                (player, action) -> ButtonAction.CLOSE_GUI);
 
 
     }
@@ -140,40 +140,6 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
         player.sendMessage("§fFormat: line1; line2; line3; ...");
         playerLoreEdit.put(player, stack);
     }
-
-    private void openAnvilGui(Player player, String actualName) {
-        new AnvilGUI.Builder()
-                .onClose(stateSnapshot -> {
-                    stateSnapshot.getPlayer().sendMessage("Aborted.");
-                    player.closeInventory();
-                    BukkitRunnable runnable = new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            openMainGui(stateSnapshot.getPlayer());
-                        }
-                    };
-                    runnable.runTaskLater(plugin, 1);
-                })
-                .onClick((slot, stateSnapshot) -> { // Either use sync or async variant, not both
-                    if (slot != AnvilGUI.Slot.OUTPUT) {
-                        return Collections.emptyList();
-                    }
-                    String finalActualName = ChatColor.translateAlternateColorCodes('&', stateSnapshot.getOutputItem().getItemMeta().getDisplayName());
-                    stateSnapshot.getPlayer().setItemInHand(new ItemBuilder(stateSnapshot.getPlayer().getItemInHand())
-                            .setName(finalActualName)
-                            .toItemStack());
-                    openMainGui(stateSnapshot.getPlayer());
-
-                    return Collections.emptyList();
-
-                })
-                .text("Escape for cancel")                              //sets the text the GUI should start with
-                .title("§3Rename §2" + actualName)                                       //set the title of the GUI (only works in 1.14+)
-                .plugin(plugin)                                          //set the plugin instance
-                .open(player);                                                   //opens the GUI for the player provided
-
-    }
-
 
 
     @Override

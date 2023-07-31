@@ -1,7 +1,7 @@
 package fr.mathilde;
 
 import dev.jcsoftware.minecraft.gui.GUIAPI;
-import fr.mathilde.commands.FieCommand;
+import fr.mathilde.commands.FastItemEditorCommand.FieCommand;
 import fr.mathilde.events.FieGuiListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
