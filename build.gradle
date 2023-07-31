@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group = 'fr.Mathilde'
@@ -15,10 +16,27 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven {
+        name = "codemc-snapshots"
+        url = "https://repo.codemc.io/repository/maven-snapshots/"
+    }
+    maven {
+        name = "jitpack.io"
+        url = "https://jitpack.io"
+    }
 }
 
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT"
+    implementation "com.github.JordanOsterberg:MCGUIAPI:1.0.2"
+    implementation "net.wesjd:anvilgui:1.7.0-SNAPSHOT"
+
+}
+
+shadowJar {
+   archiveBaseName.set('FastItemEditor')
+   archiveClassifier.set('')
+   archiveVersion.set(version)
 }
 
 def targetJavaVersion = 17
@@ -45,3 +63,6 @@ processResources {
         expand props
     }
 }
+
+compileJava.options.encoding = 'UTF-8'
+setLibsDirName("E:\\Servers\\1.20.1\\plugins")
