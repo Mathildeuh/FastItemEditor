@@ -2,7 +2,6 @@ package fr.mathilde.inventories;
 
 import fr.mathilde.FastItemEditor;
 import fr.mathilde.utilities.ItemBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -20,7 +19,7 @@ public class AnvilGUI {
                     BukkitRunnable runnable = new BukkitRunnable() {
                         @Override
                         public void run() {
-                            openMainGui(stateSnapshot.getPlayer());
+                            openMainGui(stateSnapshot.getPlayer(), plugin);
                         }
                     };
                     if (reOpenGui)
@@ -41,7 +40,7 @@ public class AnvilGUI {
                     .toItemStack());
 
             if (reOpenGui)
-                openMainGui(stateSnapshot.getPlayer());
+                openMainGui(stateSnapshot.getPlayer(), plugin);
             else
                 stateSnapshot.getPlayer().closeInventory();
             return Collections.emptyList();

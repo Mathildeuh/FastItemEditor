@@ -15,20 +15,20 @@ import java.util.List;
 public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
     public static HashMap<Player, ItemStack> playerLoreEdit = new HashMap<>();
-    static FastItemEditor plugin;
+    FastItemEditor plugin;
     ItemStack stack;
     String stackFormatedName;
 
     public FastItemEditorGUI(FastItemEditor plugin, ItemStack stack) {
         super(plugin);
 
-        FastItemEditorGUI.plugin = plugin;
+        this.plugin = plugin;
         this.stack = stack;
         this.stackFormatedName = stack.getType().name().toLowerCase().replaceAll("_", " ");
         createInventory();
     }
 
-    public static void openMainGui(Player player) {
+    public static void openMainGui(Player player, FastItemEditor plugin) {
         FastItemEditor.guiAPI.openGUI(player, new FastItemEditorGUI(plugin, player.getItemInHand()));
         String relocalizedName = player.getItemInHand().getType().name().toLowerCase().replaceAll("_", " ");
 
@@ -112,7 +112,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
                         }
                     };
-                    run.runTaskLater(plugin, 20);
+                    run.runTaskLater(this.plugin, 20);
 
                     return ButtonAction.CANCEL;
                 });

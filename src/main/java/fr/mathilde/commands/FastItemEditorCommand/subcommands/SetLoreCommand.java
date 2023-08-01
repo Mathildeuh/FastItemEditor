@@ -29,7 +29,6 @@ public class SetLoreCommand extends SubCommands {
     }
 
 
-
     @Override
     public void run(Player player, String[] args) {
         if (args.length >= 1) {
@@ -48,7 +47,6 @@ public class SetLoreCommand extends SubCommands {
 
 
             ItemStack stack = new ItemBuilder(player.getItemInHand()).setLore(lore).toItemStack();
-
 
 
             player.setItemInHand(stack);

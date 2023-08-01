@@ -17,6 +17,7 @@ import java.util.List;
 
 import static fr.mathilde.inventories.FastItemEditorGUI.openMainGui;
 
+
 public class FieGuiListener implements Listener {
 
 
@@ -68,7 +69,7 @@ public class FieGuiListener implements Listener {
         Bukkit.getScheduler().runTask(plugin, () -> {
 
             FastItemEditorGUI.playerLoreEdit.remove(player);
-            openMainGui(player);
+            openMainGui(player, plugin);
 
         });
 

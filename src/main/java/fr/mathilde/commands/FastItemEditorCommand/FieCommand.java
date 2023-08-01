@@ -18,11 +18,16 @@ import java.util.List;
 
 import static fr.mathilde.inventories.FastItemEditorGUI.openMainGui;
 
+
 public class FieCommand implements CommandExecutor, TabCompleter {
 
     public static HashMap<String, SubCommands> subcommands = new HashMap<>();
 
     static FastItemEditor plugin;
+    List<String> commands = new ArrayList<>();
+
+    public FieCommand() {
+    }
 
     public FieCommand(FastItemEditor fastItemEditor) {
         plugin = fastItemEditor;
@@ -47,7 +52,7 @@ public class FieCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args.length == 0) {
-            openMainGui(player);
+            openMainGui(player, plugin);
             return true;
         }
 
@@ -61,13 +66,11 @@ public class FieCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    List<String> commands = new ArrayList<>();
-
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
 
-        if (args.length <= 1){
-            for (SubCommands cmd : subcommands.values()){
+        if (args.length <= 1) {
+            for (SubCommands cmd : subcommands.values()) {
                 commands.add(cmd.getName());
             }
             return commands;

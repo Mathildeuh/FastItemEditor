@@ -24,7 +24,6 @@ public class HelpCommand extends SubCommands {
     }
 
 
-
     @Override
     public void run(Player player, String[] args) {
         sendHelpMessage(player);
