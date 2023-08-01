@@ -40,7 +40,7 @@ public class EnchantsGUI extends GUI<FastItemEditor> {
 
         for (String enchantment : getAllEnchantments()) {
             Enchantment enchant = Enchantment.getByKey(NamespacedKey.minecraft(enchantment));
-            ItemStack stack = new ItemBuilder(Material.ENCHANTED_BOOK).setName(enchant.getKey().getKey().replace("_", " ")).toItemStack();
+            ItemStack stack = new ItemBuilder(Material.ENCHANTED_BOOK).toItemStack();
             EnchantmentStorageMeta meta = (EnchantmentStorageMeta) stack.getItemMeta();
             meta.addStoredEnchant(enchant, enchantLevel, true);
             stack.setItemMeta(meta);
