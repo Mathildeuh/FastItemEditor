@@ -15,6 +15,7 @@ import java.util.List;
 public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
     public static HashMap<Player, ItemStack> playerLoreEdit = new HashMap<>();
+    public static List<Player> dontReOpen = new ArrayList<>();
     FastItemEditor plugin;
     ItemStack stack;
     String stackFormatedName;
@@ -72,7 +73,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
         for (int i = 0; i < lore.size(); i++) {
             String s = lore.get(i);
             if (s.equalsIgnoreCase(""))
-                s = "§7<blank>";
+                s = "§7§oEmpty line";
 
             lore.set(i, "§c- §r" + s);
 
@@ -89,7 +90,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
                         .toItemStack(),
                 (player, action) -> {
-                    editLore(player);
+                    editLore(player, stack, true);
                     return ButtonAction.CLOSE_GUI;
                 });
 
@@ -122,7 +123,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
                         .toItemStack(),
                 (player, action) -> {
-                    FastItemEditor.guiAPI.openGUI(player, new EditEnchantsGUI(plugin, player.getItemInHand()));
+                    FastItemEditor.guiAPI.openGUI(player, new EnchantsGUI(plugin, player.getItemInHand(), player));
                     return ButtonAction.CANCEL;
                 });
 
@@ -135,10 +136,12 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
     }
 
-    private void editLore(Player player) {
+    public static void editLore(Player player, ItemStack stack, Boolean openMainGui) {
         player.sendMessage("§fWrite your lore in the chat. Type §ccancel §fto cancel.");
         player.sendMessage("§fFormat: line1; line2; line3; ...");
         playerLoreEdit.put(player, stack);
+        if (!openMainGui)
+            dontReOpen.add(player);
     }
 
 

@@ -3,7 +3,6 @@ package fr.mathilde.inventories;
 import dev.jcsoftware.minecraft.gui.GUI;
 import fr.mathilde.FastItemEditor;
 import fr.mathilde.utilities.ItemBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -18,24 +17,24 @@ import java.util.Map;
 import static fr.mathilde.inventories.FastItemEditorGUI.openMainGui;
 
 
-public class EditEnchantsGUI extends GUI<FastItemEditor> {
+public class EnchantsGUI extends GUI<FastItemEditor> {
 
     FastItemEditor plugin;
     ItemStack itemInHand;
 
-    public EditEnchantsGUI(FastItemEditor plugin, ItemStack itemInHand) {
+    public EnchantsGUI(FastItemEditor plugin, ItemStack itemInHand, Player player) {
         super(plugin);
 
         this.plugin = plugin;
         this.itemInHand = itemInHand;
-        createInventory();
+        createInventory(player);
     }
 
     static int enchantLevel = 1;
 
-    private void createInventory() {
+    private void createInventory(Player pl) {
 
-
+        pl.getOpenInventory().setTitle("§3Fast Item Editor §7- §2Level: " + enchantLevel);
 
         int i = 0;
 
@@ -64,15 +63,20 @@ public class EditEnchantsGUI extends GUI<FastItemEditor> {
             i++;
         }
 
+        set(46, new ItemBuilder(Material.BLAZE_ROD, 1).setName("§2Level min: 1").toItemStack(), (player, action) -> {
+            enchantLevel = 1;
+            createInventory(player);
+            return ButtonAction.CANCEL;
+        });
 
         set(47, new ItemBuilder(Material.ARROW, 10).setName("§4-10").toItemStack(), (player, action) -> {
             setEnchantLevel(-10);
-            createInventory();
+            createInventory(player);
             return ButtonAction.CANCEL;
         });
         set(48, new ItemBuilder(Material.ARROW).setName("§c-1").toItemStack(), (player, action) -> {
             setEnchantLevel(-1);
-            createInventory();
+            createInventory(player);
             return ButtonAction.CANCEL;
         });
 
@@ -80,14 +84,22 @@ public class EditEnchantsGUI extends GUI<FastItemEditor> {
 
         set(50, new ItemBuilder(Material.ARROW).setName("§a+1").toItemStack(), (player, action) -> {
             setEnchantLevel(1);
-            createInventory();
+            createInventory(player);
             return ButtonAction.CANCEL;
         });
         set(51, new ItemBuilder(Material.ARROW, 10).setName("§2+10").toItemStack(), (player, action) -> {
             setEnchantLevel(10);
-            createInventory();
+            createInventory(player);
             return ButtonAction.CANCEL;
         });
+
+        set(52, new ItemBuilder(Material.BLAZE_ROD, 64).setName("§2Level max: 255").toItemStack(), (player, action) -> {
+            enchantLevel = 255;
+            createInventory(player);
+            return ButtonAction.CANCEL;
+        });
+
+
         set(53, new ItemBuilder(Material.BARRIER).setName("§cBack").toItemStack(), (player, action) -> {
             openMainGui(player, plugin);
             return ButtonAction.CANCEL;
@@ -126,7 +138,7 @@ public class EditEnchantsGUI extends GUI<FastItemEditor> {
 
     @Override
     public String getTitle() {
-        return "§3Fast Item Editor §7- §2Enchantments";
+        return "§3Fast Item Editor §7- §2Level: " + enchantLevel;
     }
 
     @Override

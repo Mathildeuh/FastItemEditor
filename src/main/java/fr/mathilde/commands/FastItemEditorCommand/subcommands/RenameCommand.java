@@ -40,8 +40,10 @@ public class RenameCommand extends SubCommands {
 
         }
         name = new StringBuilder(ChatColor.translateAlternateColorCodes('&', name.toString()));
-        stack.getItemMeta().setDisplayName(name.toString());
-        player.setItemInHand(stack);
+        ItemStack renamedStack = new ItemBuilder(stack).setName(name.toString()).toItemStack();
+
+        player.setItemInHand(renamedStack);
+        System.out.println(renamedStack.getItemMeta().getDisplayName());
         player.sendMessage("§aItem renamed to §e" + name);
     }
 }

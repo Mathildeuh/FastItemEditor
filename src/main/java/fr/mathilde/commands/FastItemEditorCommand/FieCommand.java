@@ -1,6 +1,7 @@
 package fr.mathilde.commands.FastItemEditorCommand;
 
 import fr.mathilde.FastItemEditor;
+import fr.mathilde.commands.FastItemEditorCommand.subcommands.EnchantCommand;
 import fr.mathilde.commands.FastItemEditorCommand.subcommands.HelpCommand;
 import fr.mathilde.commands.FastItemEditorCommand.subcommands.RenameCommand;
 import fr.mathilde.commands.FastItemEditorCommand.subcommands.SetLoreCommand;
@@ -31,9 +32,12 @@ public class FieCommand implements CommandExecutor, TabCompleter {
 
     public FieCommand(FastItemEditor fastItemEditor) {
         plugin = fastItemEditor;
+
         subcommands.put("help", new HelpCommand());
-        subcommands.put("name", new RenameCommand(plugin));
+        subcommands.put("rename", new RenameCommand(plugin));
         subcommands.put("setlore", new SetLoreCommand(plugin));
+        subcommands.put("enchant", new EnchantCommand(plugin));
+
     }
 
     @Deprecated
