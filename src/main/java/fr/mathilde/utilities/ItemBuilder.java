@@ -3,6 +3,7 @@ package fr.mathilde.utilities;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -170,6 +171,25 @@ public class ItemBuilder {
     public ItemBuilder setLore(String... lore) {
         ItemMeta im = is.getItemMeta();
         im.setLore(Arrays.asList(lore));
+        is.setItemMeta(im);
+        return this;
+    }
+
+    /**
+     * Re-sets the flags.
+     *
+     * @param lore The flag to set it to.
+     */
+    public ItemBuilder addFlag(ItemFlag... flag) {
+        ItemMeta im = is.getItemMeta();
+        im.addItemFlags(flag);
+        is.setItemMeta(im);
+        return this;
+    }
+
+    public ItemBuilder removeFlag(ItemFlag flag) {
+        ItemMeta im = is.getItemMeta();
+        im.removeItemFlags(flag);
         is.setItemMeta(im);
         return this;
     }

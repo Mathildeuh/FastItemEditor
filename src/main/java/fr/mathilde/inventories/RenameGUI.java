@@ -28,6 +28,7 @@ public class RenameGUI {
 
                 .text("Escape for cancel")
                 .title("§3Rename §2" + actualName)
+                .itemLeft(new ItemBuilder(player.getItemInHand().getType()).toItemStack())
                 .plugin(plugin);
 
         builder.onClick((slot, stateSnapshot) -> {

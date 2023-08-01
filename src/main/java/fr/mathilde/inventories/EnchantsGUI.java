@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +56,6 @@ public class EnchantsGUI extends GUI<FastItemEditor> {
 
             set(i, stack, (player, clickedItem) -> {
 
-                // detect if player item already has the enchantment
                 ItemStack playerItem = new ItemBuilder(player.getItemInHand()).toItemStack();
 
                 Map<Enchantment, Integer> enchantments = player.getItemInHand().getEnchantments();
@@ -117,14 +115,9 @@ public class EnchantsGUI extends GUI<FastItemEditor> {
     }
 
 
-
-
-
-
     public List<String> getAllEnchantments() {
         List<String> enchantmentList = new ArrayList<>();
 
-        // Récupérer tous les enchantements disponibles jusqu'au 45ème slot
         int counter = 0;
         for (Enchantment enchantment : Enchantment.values()) {
             enchantmentList.add(enchantment.getKey().getKey());

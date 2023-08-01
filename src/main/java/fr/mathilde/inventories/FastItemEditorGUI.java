@@ -4,13 +4,12 @@ import dev.jcsoftware.minecraft.gui.GUI;
 import fr.mathilde.FastItemEditor;
 import fr.mathilde.utilities.ItemBuilder;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
@@ -46,10 +45,34 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
             dontReOpen.add(player);
     }
 
+    public static List<String> formatEnchantments(ItemStack item) {
+        List<String> formattedEnchantments = new ArrayList<>();
+
+        if (item != null && item.hasItemMeta() && item.getItemMeta().hasEnchants()) {
+            ItemMeta itemMeta = item.getItemMeta();
+            formattedEnchantments.add("§7Actual enchantments:");
+
+            for (Enchantment enchantment : itemMeta.getEnchants().keySet()) {
+                int level = itemMeta.getEnchantLevel(enchantment);
+                String enchantName = "§c- §a" + enchantment.getKey().getKey() + " §7: §e";
+                String formattedEnchant = formatEnchantment(enchantName, level);
+                formattedEnchantments.add(formattedEnchant);
+            }
+        }
+
+        return formattedEnchantments;
+    }
+
+    // Méthode utilitaire pour formater l'enchantement et son niveau
+    private static String formatEnchantment(String enchantName, int level) {
+        return enchantName + " " + ((level > 0) ? level : "");
+    }
+
+    // Méthode utilitaire pour formater l'enchantement et son niveau
+
     private void createInventory() {
 
         String actualName = stack.getItemMeta().hasDisplayName() ? stack.getItemMeta().getDisplayName() : null;
-
 
         set(10,
                 new ItemBuilder(Material.ITEM_FRAME)
@@ -87,7 +110,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
         }
         if (lore.isEmpty()) {
-            lore.add("§c- §fNo lore");
+            lore.add("§cNo lore");
         }
         lore.add(0, "§7Actual lores: ");
 
@@ -109,27 +132,38 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
                         .toItemStack(),
                 (player, item) -> {
-                    String last_name = item.getItemMeta().hasDisplayName() ? item.getItemMeta().getDisplayName() : null;
-                    final ItemStack[] newStack = {new ItemBuilder(item).setName("§c§lNot implemented yet !").toItemStack()};
-                    set(21, newStack[0]);
-                    BukkitRunnable run = new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            newStack[0] = new ItemBuilder(item).setName(last_name).toItemStack();
-                            set(21, newStack[0]);
-                            createInventory();
-
-                        }
-                    };
-                    run.runTaskLater(this.plugin, 20);
-
+                    ItemFlagsGUI.openAnvilGui(player, plugin, true);
                     return ButtonAction.CANCEL;
                 });
-        set(28,
-                new ItemBuilder(Material.ENCHANTING_TABLE)
-                        .setName("§3Edit enchants")
 
-                        .toItemStack(),
+//                    String last_name = item.getItemMeta().hasDisplayName() ? item.getItemMeta().getDisplayName() : null;
+//                    final ItemStack[] newStack = {new ItemBuilder(item).setName("§c§lNot implemented yet !").toItemStack()};
+//                    set(21, newStack[0]);
+//                    BukkitRunnable run = new BukkitRunnable() {
+//                        @Override
+//                        public void run() {
+//                            newStack[0] = new ItemBuilder(item).setName(last_name).toItemStack();
+//                            set(21, newStack[0]);
+//                            createInventory();
+//
+//                        }
+//                    };
+//                    run.runTaskLater(this.plugin, 20);
+
+
+        List<String> formattedEnchantments = formatEnchantments(stack);
+        if (formattedEnchantments.isEmpty()) {
+            formattedEnchantments.add("§7Actual enchantments:");
+
+            formattedEnchantments.add("§cNo enchantments");
+        }
+
+        ItemStack enchants = new ItemBuilder(Material.ENCHANTING_TABLE)
+                .setName("§3Edit enchants")
+                .setLore(formattedEnchantments)
+                .toItemStack();
+        set(28, enchants
+                ,
                 (player, action) -> {
                     FastItemEditor.guiAPI.openGUI(player, new EnchantsGUI(plugin, player.getItemInHand(), player));
                     return ButtonAction.CANCEL;

@@ -33,7 +33,7 @@ public class FieGuiListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        if (e.getInventory().getHolder() instanceof FastItemEditorGUI || e.getInventory().getHolder() instanceof EnchantsGUI) {
+        if (e.getInventory().getHolder() instanceof FastItemEditorGUI || e.getInventory().getHolder() instanceof EnchantsGUI || e.getInventory().getHolder() instanceof fr.mathilde.inventories.RenameGUI || e.getInventory().getHolder() instanceof fr.mathilde.inventories.ItemFlagsGUI) {
             if (!e.isCancelled())
                 e.setCancelled(true);
         }

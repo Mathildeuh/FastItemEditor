@@ -1,10 +1,7 @@
 package fr.mathilde.commands.FastItemEditorCommand;
 
 import fr.mathilde.FastItemEditor;
-import fr.mathilde.commands.FastItemEditorCommand.subcommands.EnchantCommand;
-import fr.mathilde.commands.FastItemEditorCommand.subcommands.HelpCommand;
-import fr.mathilde.commands.FastItemEditorCommand.subcommands.RenameCommand;
-import fr.mathilde.commands.FastItemEditorCommand.subcommands.SetLoreCommand;
+import fr.mathilde.commands.FastItemEditorCommand.subcommands.*;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -37,6 +34,7 @@ public class FieCommand implements CommandExecutor, TabCompleter {
         subcommands.put("rename", new RenameCommand(plugin));
         subcommands.put("setlore", new SetLoreCommand(plugin));
         subcommands.put("enchant", new EnchantCommand(plugin));
+        subcommands.put("itemflags", new ItemFlagsCommand(plugin));
 
     }
 
