@@ -4,19 +4,21 @@ import fr.mathilde.FastItemEditor;
 import fr.mathilde.commands.FastItemEditorCommand.subcommands.HelpCommand;
 import fr.mathilde.commands.FastItemEditorCommand.subcommands.RenameCommand;
 import fr.mathilde.commands.FastItemEditorCommand.subcommands.SetLoreCommand;
-import fr.mathilde.commands.FastItemEditorCommand.subcommands.SubCommands;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static fr.mathilde.inventories.FastItemEditorGUI.openMainGui;
 
-public class FieCommand implements CommandExecutor {
+public class FieCommand implements CommandExecutor, TabCompleter {
 
     public static HashMap<String, SubCommands> subcommands = new HashMap<>();
 
@@ -25,7 +27,7 @@ public class FieCommand implements CommandExecutor {
     public FieCommand(FastItemEditor fastItemEditor) {
         plugin = fastItemEditor;
         subcommands.put("help", new HelpCommand());
-        subcommands.put("rename", new RenameCommand(plugin));
+        subcommands.put("name", new RenameCommand(plugin));
         subcommands.put("setlore", new SetLoreCommand(plugin));
     }
 
@@ -57,5 +59,19 @@ public class FieCommand implements CommandExecutor {
         }
 
         return true;
+    }
+
+    List<String> commands = new ArrayList<>();
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+
+        if (args.length <= 1){
+            for (SubCommands cmd : subcommands.values()){
+                commands.add(cmd.getName());
+            }
+            return commands;
+        }
+        return null;
     }
 }

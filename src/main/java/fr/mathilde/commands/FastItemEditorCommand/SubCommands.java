@@ -1,4 +1,4 @@
-package fr.mathilde.commands.FastItemEditorCommand.subcommands;
+package fr.mathilde.commands.FastItemEditorCommand;
 
 import org.bukkit.entity.Player;
 

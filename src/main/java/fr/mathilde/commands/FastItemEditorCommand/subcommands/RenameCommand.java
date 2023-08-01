@@ -1,6 +1,7 @@
 package fr.mathilde.commands.FastItemEditorCommand.subcommands;
 
 import fr.mathilde.FastItemEditor;
+import fr.mathilde.commands.FastItemEditorCommand.SubCommands;
 import fr.mathilde.inventories.AnvilGUI;
 import fr.mathilde.utilities.ItemBuilder;
 import org.bukkit.ChatColor;

@@ -16,7 +16,9 @@ public final class FastItemEditor extends JavaPlugin {
         guiAPI = new GUIAPI<>(this);
 
         // Commands
-        getCommand("fastitemeditor").setExecutor(new FieCommand(this));
+        FieCommand fieCommand = new FieCommand(this);
+        getCommand("fastitemeditor").setExecutor(fieCommand);
+        getCommand("fastitemeditor").setTabCompleter(fieCommand);
 
         // Events
         getServer().getPluginManager().registerEvents(new FieGuiListener(this), this);
