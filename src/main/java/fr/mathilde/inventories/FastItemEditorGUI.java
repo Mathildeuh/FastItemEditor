@@ -9,7 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
@@ -76,28 +78,13 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
         set(10,
                 new ItemBuilder(Material.ITEM_FRAME)
-                        .setName("§3Rename")
+                        .setName("§3Edit name")
                         .setLore("§7Actual name: §c" + actualName)
                         .toItemStack(),
                 (player, action) -> {
                     RenameGUI.openAnvilGui(player, actualName, plugin, true);
                     return ButtonAction.CANCEL;
                 });
-
-        set(12,
-                new ItemBuilder(Material.STRUCTURE_VOID)
-                        .setName("§3Unbreakable")
-                        .setLore("§7Actual value: §c" + stack.getItemMeta().isUnbreakable())
-                        .toItemStack(),
-                (player, action) -> {
-                    ItemStack item = new ItemBuilder(stack).setUnbreakable(!stack.getItemMeta().isUnbreakable()).setDurability((short) 190000).toItemStack();
-                    player.setItemInHand(item);
-                    createInventory();
-                    return ButtonAction.CANCEL;
-                });
-
-        set(16, stack);
-
 
         List<String> lore = stack.getItemMeta().hasLore() ? stack.getItemMeta().getLore() : new ArrayList<>();
 
@@ -114,7 +101,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
         }
         lore.add(0, "§7Actual lores: ");
 
-        set(19,
+        set(11,
                 new ItemBuilder(Material.WRITABLE_BOOK)
                         .setName("§3Edit lores")
                         .setLore(lore)
@@ -124,32 +111,6 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
                     editLore(player, stack, true);
                     return ButtonAction.CLOSE_GUI;
                 });
-
-        set(21,
-                new ItemBuilder(Material.GLOW_ITEM_FRAME)
-                        .setName("§3Edit ITEM FLAGS")
-                        .setLore("§7Actual flags: §c" + stack.getItemMeta().getItemFlags())
-
-                        .toItemStack(),
-                (player, item) -> {
-                    ItemFlagsGUI.openAnvilGui(player, plugin, true);
-                    return ButtonAction.CANCEL;
-                });
-
-//                    String last_name = item.getItemMeta().hasDisplayName() ? item.getItemMeta().getDisplayName() : null;
-//                    final ItemStack[] newStack = {new ItemBuilder(item).setName("§c§lNot implemented yet !").toItemStack()};
-//                    set(21, newStack[0]);
-//                    BukkitRunnable run = new BukkitRunnable() {
-//                        @Override
-//                        public void run() {
-//                            newStack[0] = new ItemBuilder(item).setName(last_name).toItemStack();
-//                            set(21, newStack[0]);
-//                            createInventory();
-//
-//                        }
-//                    };
-//                    run.runTaskLater(this.plugin, 20);
-
 
         List<String> formattedEnchantments = formatEnchantments(stack);
         if (formattedEnchantments.isEmpty()) {
@@ -162,14 +123,41 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
                 .setName("§3Edit enchants")
                 .setLore(formattedEnchantments)
                 .toItemStack();
-        set(28, enchants
+
+        set(12, enchants
                 ,
                 (player, action) -> {
                     FastItemEditor.guiAPI.openGUI(player, new EnchantsGUI(plugin, player.getItemInHand(), player));
                     return ButtonAction.CANCEL;
                 });
 
-        set(44,
+        set(13,
+                new ItemBuilder(Material.GLOW_ITEM_FRAME)
+                        .setName("§3Edit Item Flags")
+                        .setLore("§7Actual flags: §c" + stack.getItemMeta().getItemFlags())
+
+                        .toItemStack(),
+                (player, item) -> {
+                    ItemFlagsGUI.openAnvilGui(player, plugin, true);
+                    return ButtonAction.CANCEL;
+                });
+
+        set(14,
+                new ItemBuilder(Material.STRUCTURE_VOID)
+                        .setName("§3Unbreakable ?")
+                        .setLore("§7Actual value: §c" + stack.getItemMeta().isUnbreakable())
+                        .toItemStack(),
+                (player, action) -> {
+                    ItemStack item = new ItemBuilder(stack).setUnbreakable(!stack.getItemMeta().isUnbreakable()).setDurability((short) 190000).toItemStack();
+                    player.setItemInHand(item);
+                    createInventory();
+                    return ButtonAction.CANCEL;
+                });
+
+        set(16, stack);
+
+
+        set(26,
                 new ItemBuilder(Material.BARRIER)
                         .setName("§cClose")
                         .toItemStack(),
@@ -180,7 +168,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
     @Override
     public int getSize() {
-        return 5 * 9;
+        return 3 * 9;
     }
 
     @Override
