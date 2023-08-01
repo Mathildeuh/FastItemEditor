@@ -121,7 +121,7 @@ public class EditEnchantsGUI extends GUI<FastItemEditor> {
 
     @Override
     public int getSize() {
-        return 6 * 9;
+        return 54;
     }
 
     @Override
