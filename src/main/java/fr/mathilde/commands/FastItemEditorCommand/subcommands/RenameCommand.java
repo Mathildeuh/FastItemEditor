@@ -2,7 +2,7 @@ package fr.mathilde.commands.FastItemEditorCommand.subcommands;
 
 import fr.mathilde.FastItemEditor;
 import fr.mathilde.commands.FastItemEditorCommand.SubCommands;
-import fr.mathilde.inventories.AnvilGUI;
+import fr.mathilde.inventories.RenameGUI;
 import fr.mathilde.utilities.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -30,7 +30,7 @@ public class RenameCommand extends SubCommands {
         ItemStack stack = new ItemBuilder(player.getItemInHand()).toItemStack();
 
         if (args.length == 1) {
-            AnvilGUI.openAnvilGui(player, stack.getItemMeta().getDisplayName(), plugin, false);
+            RenameGUI.openAnvilGui(player, stack.getItemMeta().getDisplayName(), plugin, false);
             return;
         }
         StringBuilder name = new StringBuilder();

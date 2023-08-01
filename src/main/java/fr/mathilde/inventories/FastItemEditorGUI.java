@@ -38,6 +38,14 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
     }
 
+    public static void editLore(Player player, ItemStack stack, Boolean openMainGui) {
+        player.sendMessage("§fWrite your lore in the chat. Type §ccancel §fto cancel.");
+        player.sendMessage("§fFormat: line1; line2; line3; ...");
+        playerLoreEdit.put(player, stack);
+        if (!openMainGui)
+            dontReOpen.add(player);
+    }
+
     private void createInventory() {
 
         String actualName = stack.getItemMeta().hasDisplayName() ? stack.getItemMeta().getDisplayName() : null;
@@ -49,7 +57,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
                         .setLore("§7Actual name: §c" + actualName)
                         .toItemStack(),
                 (player, action) -> {
-                    AnvilGUI.openAnvilGui(player, actualName, plugin, true);
+                    RenameGUI.openAnvilGui(player, actualName, plugin, true);
                     return ButtonAction.CANCEL;
                 });
 
@@ -135,15 +143,6 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
 
     }
-
-    public static void editLore(Player player, ItemStack stack, Boolean openMainGui) {
-        player.sendMessage("§fWrite your lore in the chat. Type §ccancel §fto cancel.");
-        player.sendMessage("§fFormat: line1; line2; line3; ...");
-        playerLoreEdit.put(player, stack);
-        if (!openMainGui)
-            dontReOpen.add(player);
-    }
-
 
     @Override
     public int getSize() {

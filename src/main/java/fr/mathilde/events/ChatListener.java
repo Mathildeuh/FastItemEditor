@@ -1,7 +1,6 @@
 package fr.mathilde.events;
 
 import fr.mathilde.FastItemEditor;
-import fr.mathilde.commands.FastItemEditorCommand.subcommands.SetLoreCommand;
 import fr.mathilde.inventories.FastItemEditorGUI;
 import fr.mathilde.utilities.ItemBuilder;
 import org.bukkit.ChatColor;
@@ -17,6 +16,7 @@ import static fr.mathilde.events.FieGuiListener.reOpenMainGui;
 
 public class ChatListener implements Listener {
     FastItemEditor plugin;
+
     public ChatListener(FastItemEditor fastItemEditor) {
 
         this.plugin = fastItemEditor;
@@ -54,9 +54,9 @@ public class ChatListener implements Listener {
             FastItemEditorGUI.playerLoreEdit.remove(e.getPlayer());
             e.getPlayer().getInventory().setItemInMainHand(item);
             if (FastItemEditorGUI.dontReOpen.contains(e.getPlayer())) {
-                    FastItemEditorGUI.dontReOpen.remove(e.getPlayer());
-                    e.getPlayer().sendMessage("§aLore set !");
-                    return;
+                FastItemEditorGUI.dontReOpen.remove(e.getPlayer());
+                e.getPlayer().sendMessage("§aLore set !");
+                return;
             }
             reOpenMainGui(e.getPlayer(), plugin);
         }

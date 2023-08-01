@@ -3,6 +3,7 @@ package fr.mathilde.inventories;
 import dev.jcsoftware.minecraft.gui.GUI;
 import fr.mathilde.FastItemEditor;
 import fr.mathilde.utilities.ItemBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -10,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,22 +21,30 @@ import static fr.mathilde.inventories.FastItemEditorGUI.openMainGui;
 
 public class EnchantsGUI extends GUI<FastItemEditor> {
 
+    static int enchantLevel = 1;
     FastItemEditor plugin;
     ItemStack itemInHand;
+
+    Player player;
 
     public EnchantsGUI(FastItemEditor plugin, ItemStack itemInHand, Player player) {
         super(plugin);
 
         this.plugin = plugin;
         this.itemInHand = itemInHand;
+        this.player = player;
         createInventory(player);
+
     }
 
-    static int enchantLevel = 1;
+    public static void setEnchantLevel(int i) {
+        if (enchantLevel + i >= 1 && enchantLevel + i <= 255)
+            enchantLevel = enchantLevel + i;
+    }
 
     private void createInventory(Player pl) {
-
-        pl.getOpenInventory().setTitle("§3Fast Item Editor §7- §2Level: " + enchantLevel);
+        Bukkit.getScheduler().runTaskLaterAsynchronously(plugin,
+                () -> pl.getOpenInventory().setTitle("§3Fast Item Editor §7- §2Level: " + enchantLevel), 1);
 
         int i = 0;
 
@@ -107,10 +117,9 @@ public class EnchantsGUI extends GUI<FastItemEditor> {
     }
 
 
-    public static void setEnchantLevel(int i){
-        if (enchantLevel + i >= 1 && enchantLevel + i <= 255)
-            enchantLevel = enchantLevel + i;
-    }
+
+
+
 
     public List<String> getAllEnchantments() {
         List<String> enchantmentList = new ArrayList<>();
@@ -138,7 +147,7 @@ public class EnchantsGUI extends GUI<FastItemEditor> {
 
     @Override
     public String getTitle() {
-        return "§3Fast Item Editor §7- §2Level: " + enchantLevel;
+        return "§cName cannot be initialized, please report this bug";
     }
 
     @Override

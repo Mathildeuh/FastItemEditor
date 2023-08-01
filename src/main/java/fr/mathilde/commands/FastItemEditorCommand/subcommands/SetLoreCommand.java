@@ -1,7 +1,6 @@
 package fr.mathilde.commands.FastItemEditorCommand.subcommands;
 
 import fr.mathilde.FastItemEditor;
-import fr.mathilde.commands.FastItemEditorCommand.FieCommand;
 import fr.mathilde.commands.FastItemEditorCommand.SubCommands;
 import fr.mathilde.inventories.FastItemEditorGUI;
 import fr.mathilde.utilities.ItemBuilder;

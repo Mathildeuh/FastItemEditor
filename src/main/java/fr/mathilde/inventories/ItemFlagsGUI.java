@@ -11,7 +11,7 @@ import java.util.Collections;
 import static fr.mathilde.inventories.FastItemEditorGUI.openMainGui;
 
 
-public class AnvilGUI {
+public class ItemFlagsGUI {
     public static void openAnvilGui(Player player, String actualName, FastItemEditor plugin, boolean reOpenGui) {
         net.wesjd.anvilgui.AnvilGUI.Builder builder = new net.wesjd.anvilgui.AnvilGUI.Builder()
                 .onClose(stateSnapshot -> {
@@ -26,11 +26,11 @@ public class AnvilGUI {
                         runnable.runTaskLater(plugin, 1);
                 })
 
-                .text("Escape for cancel")                              //sets the text the GUI should start with
-                .title("§3Rename §2" + actualName)                                       //set the title of the GUI (only works in 1.14+)
+                .text("Escape for cancel")
+                .title("§3Rename §2" + actualName)
                 .plugin(plugin);
 
-        builder.onClick((slot, stateSnapshot) -> { // Either use sync or async variant, not both
+        builder.onClick((slot, stateSnapshot) -> {
             if (slot != net.wesjd.anvilgui.AnvilGUI.Slot.OUTPUT) {
                 return Collections.emptyList();
             }

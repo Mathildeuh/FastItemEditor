@@ -77,6 +77,7 @@ public class FieCommand implements CommandExecutor, TabCompleter {
             for (SubCommands cmd : subcommands.values()) {
                 commands.add(cmd.getName());
             }
+            commands.sort(String::compareToIgnoreCase);
             return commands;
         }
         return null;
