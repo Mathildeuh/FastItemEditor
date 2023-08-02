@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 
 public class Inventories {
 
+
     public static class RenameGUI {
         private static String cancel, title;
         FastItemEditor plugin;
@@ -62,33 +63,31 @@ public class Inventories {
     }
 
     public static class MainGUI {
-        private static String title, editname, editlore, editenchant, edititemflags, setunbreakable, close, empty_lore, empty_line, lore_format, noenchants;
-        private static String loreeditname, loreeditlore, loreeditenchant, loreedititemflags, loresetunbreakable, enchantFormat;
+        private static String title, editName, editLore, editEnchant, editItemFlags, setUnbreakable, close, empty_lore, empty_line, lore_format, noEnchants;
+        private static String loreEditName, loreEditLore, loreEditEnchant, loreEditItemFlags, loreSetUnbreakable, enchantFormat, noName;
         FastItemEditor plugin;
-
-        public static String getEnchantFormat() {
-            return ChatColor.translateAlternateColorCodes('&', enchantFormat);
-        }
 
         public MainGUI(FastItemEditor fastItemEditor) {
             plugin = fastItemEditor;
             title = plugin.getLangConfig().getString("inventories.main.title");
-            editname = plugin.getLangConfig().getString("inventories.main.items.editname");
-            editlore = plugin.getLangConfig().getString("inventories.main.items.editlore");
-            editenchant = plugin.getLangConfig().getString("inventories.main.items.editenchants");
-            edititemflags = plugin.getLangConfig().getString("inventories.main.items.edititemflags");
-            setunbreakable = plugin.getLangConfig().getString("inventories.main.items.setunbreakable");
+            editName = plugin.getLangConfig().getString("inventories.main.items.editname");
+            editLore = plugin.getLangConfig().getString("inventories.main.items.editlore");
+            editEnchant = plugin.getLangConfig().getString("inventories.main.items.editenchants");
+            editItemFlags = plugin.getLangConfig().getString("inventories.main.items.edititemflags");
+            setUnbreakable = plugin.getLangConfig().getString("inventories.main.items.setunbreakable");
             close = plugin.getLangConfig().getString("inventories.main.items.close");
 
-            loreeditname = plugin.getLangConfig().getString("inventories.main.lores.editname");
-            loreeditlore = plugin.getLangConfig().getString("inventories.main.lores.editlore");
+            loreEditName = plugin.getLangConfig().getString("inventories.main.lores.editname");
+            noName = plugin.getLangConfig().getString("inventories.main.lores.no-name");
 
-            loreeditenchant = plugin.getLangConfig().getString("inventories.main.lores.editenchants");
-            noenchants = plugin.getLangConfig().getString("inventories.main.lores.no-enchants");
+            loreEditLore = plugin.getLangConfig().getString("inventories.main.lores.editlore");
+
+            loreEditEnchant = plugin.getLangConfig().getString("inventories.main.lores.editenchants");
+            noEnchants = plugin.getLangConfig().getString("inventories.main.lores.no-enchants");
             enchantFormat = plugin.getLangConfig().getString("inventories.main.lores.enchants-format");
 
-            loreedititemflags = plugin.getLangConfig().getString("inventories.main.lores.edititemflags");
-            loresetunbreakable = plugin.getLangConfig().getString("inventories.main.lores.setunbreakable");
+            loreEditItemFlags = plugin.getLangConfig().getString("inventories.main.lores.edititemflags");
+            loreSetUnbreakable = plugin.getLangConfig().getString("inventories.main.lores.setunbreakable");
 
             empty_lore = plugin.getLangConfig().getString("inventories.main.lores.empty-lore");
             empty_line = plugin.getLangConfig().getString("inventories.main.lores.empty-line");
@@ -96,8 +95,16 @@ public class Inventories {
 
         }
 
+        public static String getEnchantFormat() {
+            return ChatColor.translateAlternateColorCodes('&', enchantFormat);
+        }
+
+        public static String getNoName() {
+            return ChatColor.translateAlternateColorCodes('&', noName);
+        }
+
         public static String getNoEnchants() {
-            return ChatColor.translateAlternateColorCodes('&', noenchants);
+            return ChatColor.translateAlternateColorCodes('&', noEnchants);
         }
 
         public static String getLore_format() {
@@ -112,65 +119,51 @@ public class Inventories {
             return ChatColor.translateAlternateColorCodes('&', empty_line);
         }
 
-        public static String getEditname() {
-            return ChatColor.translateAlternateColorCodes('&', editname);
-        }
 
-        public static String getEditlore() {
-            return ChatColor.translateAlternateColorCodes('&', editlore);
-        }
-
-        public static String getLoreEditEnchant() {
-            return ChatColor.translateAlternateColorCodes('&', loreeditenchant);
-        }
-
-        public static String getloreEdititemflags() {
-            return ChatColor.translateAlternateColorCodes('&', loreedititemflags);
+        public static String getloreEditItemFlags() {
+            return ChatColor.translateAlternateColorCodes('&', loreEditItemFlags);
         }
 
         public static String getLoreSetUnbreakable() {
-            return ChatColor.translateAlternateColorCodes('&', loresetunbreakable);
+            return ChatColor.translateAlternateColorCodes('&', loreSetUnbreakable);
         }
 
-        public static String getLoreeditname() {
-            return ChatColor.translateAlternateColorCodes('&', loreeditname);
+        public static String getLoreEditName() {
+            return ChatColor.translateAlternateColorCodes('&', loreEditName);
         }
 
-        public static String getLoreeditlore() {
-            return ChatColor.translateAlternateColorCodes('&', loreeditlore);
+        public static String getLoreEditLore() {
+            return ChatColor.translateAlternateColorCodes('&', loreEditLore);
         }
 
-        public static String getLoreeditenchant() {
-            return ChatColor.translateAlternateColorCodes('&', loreeditenchant);
+        public static String getLoreEditEnchant() {
+            return ChatColor.translateAlternateColorCodes('&', loreEditEnchant);
         }
 
-        public static String getLoreedititemflags() {
-            return ChatColor.translateAlternateColorCodes('&', loreedititemflags);
+        public static String getLoreEditItemFlags() {
+            return ChatColor.translateAlternateColorCodes('&', loreEditItemFlags);
         }
 
-        public static String getLoresetunbreakable() {
-            return ChatColor.translateAlternateColorCodes('&', loresetunbreakable);
-        }
 
         public static String getEditName() {
-            return ChatColor.translateAlternateColorCodes('&', editname);
+            return ChatColor.translateAlternateColorCodes('&', editName);
         }
 
         public static String getEditLore() {
-            return ChatColor.translateAlternateColorCodes('&', editlore);
+            return ChatColor.translateAlternateColorCodes('&', editLore);
         }
 
 
-        public static String getEditEnchants() {
-            return ChatColor.translateAlternateColorCodes('&', editenchant);
+        public static String getEditEnchant() {
+            return ChatColor.translateAlternateColorCodes('&', editEnchant);
         }
 
         public static String getEditItemFlags() {
-            return ChatColor.translateAlternateColorCodes('&', edititemflags);
+            return ChatColor.translateAlternateColorCodes('&', editItemFlags);
         }
 
         public static String getSetUnbreakable() {
-            return ChatColor.translateAlternateColorCodes('&', setunbreakable);
+            return ChatColor.translateAlternateColorCodes('&', setUnbreakable);
         }
 
         public static String getClose() {

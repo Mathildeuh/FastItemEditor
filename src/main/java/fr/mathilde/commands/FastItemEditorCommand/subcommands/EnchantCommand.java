@@ -3,6 +3,7 @@ package fr.mathilde.commands.FastItemEditorCommand.subcommands;
 import fr.mathilde.FastItemEditor;
 import fr.mathilde.commands.FastItemEditorCommand.SubCommands;
 import fr.mathilde.inventories.EnchantsGUI;
+import fr.mathilde.lang.Commands;
 import org.bukkit.entity.Player;
 
 public class EnchantCommand extends SubCommands {
@@ -21,7 +22,7 @@ public class EnchantCommand extends SubCommands {
 
     @Override
     public String getSyntax() {
-        return "§e/fie §aenchant";
+        return Commands.Enchant.getSyntax();
     }
 
     @Override

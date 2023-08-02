@@ -39,7 +39,6 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
         player.getOpenInventory()
                 .setTitle(Inventories.MainGUI.getTitle().replace("%item_name%", relocalizedName));
-
     }
 
     public static void editLore(Player player, ItemStack stack, Boolean openMainGui) {
@@ -54,12 +53,11 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
         if (item != null && item.hasItemMeta() && item.getItemMeta().hasEnchants()) {
             ItemMeta itemMeta = item.getItemMeta();
-            formattedEnchantments.add(Inventories.MainGUI.getEditEnchants());
+            formattedEnchantments.add(Inventories.MainGUI.getLoreEditEnchant());
 
             for (Enchantment enchantment : itemMeta.getEnchants().keySet()) {
                 int level = itemMeta.getEnchantLevel(enchantment);
-                String enchantName = Inventories.MainGUI.getEnchantFormat().replace("%enchant%", enchantment.getKey().getKey());
-//                String enchantName = "§c- §a" + enchantment.getKey().getKey() + " §7: §e";
+                String enchantName = enchantment.getKey().getKey();
                 String formattedEnchant = formatEnchantment(enchantName, level);
                 formattedEnchantments.add(formattedEnchant);
             }
@@ -68,21 +66,20 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
         return formattedEnchantments;
     }
 
-    // Méthode utilitaire pour formater l'enchantement et son niveau
     private static String formatEnchantment(String enchantName, int level) {
-        return enchantName + " " + ((level > 0) ? level : "");
+        String format = Inventories.MainGUI.getEnchantFormat();
+        return format.replace("%enchant%", enchantName).replace("%level%",  ((level > 0) ? String.valueOf(level) : ""));
     }
 
-    // Méthode utilitaire pour formater l'enchantement et son niveau
 
     private void createInventory() {
 
-        String actualName = stack.getItemMeta().hasDisplayName() ? stack.getItemMeta().getDisplayName() : null;
+        String actualName = stack.getItemMeta().hasDisplayName() ? stack.getItemMeta().getDisplayName() : Inventories.MainGUI.getNoName();
 
         set(10,
                 new ItemBuilder(Material.ITEM_FRAME)
                         .setName(Inventories.MainGUI.getEditName())
-                        .setLore(Inventories.MainGUI.getLoreeditname().replace("%name%", actualName))
+                        .setLore(Inventories.MainGUI.getLoreEditName().replace("%name%", actualName))
                         .toItemStack(),
                 (player, action) -> {
 
@@ -114,7 +111,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
         if (lore.isEmpty()) {
             lore.add(Inventories.MainGUI.getEmpty_lore());
         }
-        lore.add(0, Inventories.MainGUI.getLoreeditlore());
+        lore.add(0, Inventories.MainGUI.getLoreEditLore());
 
         set(11,
                 new ItemBuilder(Material.WRITABLE_BOOK)
@@ -129,13 +126,14 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
         List<String> formattedEnchantments = formatEnchantments(stack);
         if (formattedEnchantments.isEmpty()) {
-            formattedEnchantments.add(Inventories.MainGUI.getLoreeditenchant());
+            formattedEnchantments.add(Inventories.MainGUI.getLoreEditEnchant());
+            System.out.println(Inventories.MainGUI.getLoreEditEnchant());
 
             formattedEnchantments.add(Inventories.MainGUI.getNoEnchants());
         }
 
         ItemStack enchants = new ItemBuilder(Material.ENCHANTING_TABLE)
-                .setName(Inventories.MainGUI.getEditEnchants())
+                .setName(Inventories.MainGUI.getEditEnchant())
                 .setLore(formattedEnchantments)
                 .toItemStack();
 
@@ -149,7 +147,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
         set(13,
                 new ItemBuilder(Material.GLOW_ITEM_FRAME)
                         .setName(Inventories.MainGUI.getEditItemFlags())
-                        .setLore(Inventories.MainGUI.getloreEdititemflags().replace("%flags%", stack.getItemMeta().getItemFlags().toString()))
+                        .setLore(Inventories.MainGUI.getloreEditItemFlags().replace("%flags%", stack.getItemMeta().getItemFlags().toString()))
 
                         .toItemStack(),
                 (player, item) -> {

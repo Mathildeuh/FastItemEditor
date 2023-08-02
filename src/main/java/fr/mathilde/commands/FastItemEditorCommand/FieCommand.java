@@ -3,6 +3,7 @@ package fr.mathilde.commands.FastItemEditorCommand;
 import fr.mathilde.FastItemEditor;
 import fr.mathilde.commands.FastItemEditorCommand.subcommands.*;
 import fr.mathilde.lang.Commands;
+import fr.mathilde.lang.Languages;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -38,6 +39,7 @@ public class FieCommand implements CommandExecutor, TabCompleter {
         subcommands.put("enchant", new EnchantCommand(plugin));
         subcommands.put("itemflags", new ItemFlagsCommand(plugin));
         subcommands.put("setdurability", new DurabilityCommand(plugin));
+        subcommands.put("setlang", new SetLangCommand(plugin));
 
     }
 
@@ -49,8 +51,8 @@ public class FieCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        if (!player.hasPermission(Commands.getPermission())) {
-            player.sendMessage(Commands.getNoPermission());
+        if (!player.hasPermission("fie.use")) {
+            player.sendMessage("test");
             return true;
         }
 
@@ -79,14 +81,23 @@ public class FieCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        if (args[0].equalsIgnoreCase("setlang")) {
+            List<String> langs = new ArrayList<>();
+            for (Languages lang : Languages.values()) {
+                langs.add(lang.name());
+            }
+            return langs;
+        }
 
-        if (args.length <= 1) {
+        if (args.length == 1) {
             for (SubCommands cmd : subcommands.values()) {
                 commands.add(cmd.getName());
             }
             commands.sort(String::compareToIgnoreCase);
             return commands;
         }
+
+
         return null;
     }
 }

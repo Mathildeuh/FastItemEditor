@@ -1,0 +1,92 @@
+need-to-have-item-in-hand: "&cVous devez tenir un objet dans votre main pour utiliser cette commande."
+
+fastitemeditor-command:
+  permission: "fastitemeditor.use"
+  no-permission: "&cVous n'avez pas la permission d'utiliser cette commande."
+
+  setlore:
+    syntax: "&e/fastitemeditor &asetlore [<description>]"
+    already-editing: "&cVous êtes déjà en train de modifier la description de l'objet."
+    lore-set: "&aLa description a été défini."
+    lore-split-regex: "; "
+    lore-edit-canceled: "&cLa modification de la description a été annulé."
+    word-for-cancel: "annuler" # NO COLORS HERE
+    blank: "%vide"
+    enter-editor: "&fÉcrivez la description dans le chat. Écrivez &ccancel &fpour annuler.\n&fFormat: ligne1; ligne2; ligne3; ..."
+  setloreline:
+    syntax: "&e/fastitemeditor &asetloreline <ligne> <texte>"
+    invalid-line-number: "&cNombre de ligne invalide."
+    line-number-too-high: "&cLe nombre de ligne est trop grand."
+    line-not-found: "&aLigne introuvable, ajout d'une ligne à la description."
+    empty-line: "Nouvelle ligne vide"
+    lore-set: "&Ligne de description &e%i% &aa été défini à la ligne &e%line%."
+  rename:
+    syntax: "&e/fastitemeditor &arename [<nom>]"
+    item-renamed: "&aL'objet a été renommé &e%name%&a."
+  itemFlags:
+    syntax: "&e/fastitemeditor &aitemflags"
+  help:
+    syntax: "&e/fastitemeditor &ahelp"
+    message: "&6FastItemEditor commands:"
+  enchant:
+    syntax: "&e/fastitemeditor &aenchant"
+  durability:
+    syntax: "&e/fastitemeditor &asetdurability <durabilité>"
+    word-max: "max"
+    word-half: "moitié"
+    invalid-durability: "&cDurabilité invalide."
+    complete: "&aLa durabilité a été défini à &e%value%&a."
+
+
+inventories:
+  main:
+    title: "&3FastItemEditor &7- &2%item_name%"
+    items:
+      editname: "&3Modification du nom"
+      editlore: "&3Modification de la description"
+      editenchants: "&3Modification des enchantements"
+      edititemflags: "&3Modification des «Items Flags»"
+      setunbreakable: "&3Incassable ?"
+
+      close: "&cFermer"
+    lores:
+      no-name: "&cSans nom"
+      editname: "&7Nom actuel: &c%name%"
+      editlore: "&7Description actuelle:"
+
+      lore-format: "&c- &r %line%"
+      empty-lore: "&cDescription vide"
+      empty-line: "&7Ligne vide"
+
+      editenchants: "&7Enchantements actuels:"
+      no-enchants: "&cPas d'enchantements"
+      enchants-format: "&c- &a%enchant% &7: &e%level%"
+
+      edititemflags: "&7«Items Flags» actuels: &c%flags%"
+      setunbreakable: "&7Valeur actuelle: &c%value%"
+
+
+
+
+  rename:
+    cancel: "Échap pour annuler" # Color can't work here
+    title: "&3Renommer %name%" # <- %name%   will be replaced with the item name
+
+  itemflags:
+    cancel: "Échap pour annuler" # Color can't work here
+    title: "&3Modification des «Items Flags»" # <- %name%   will be replaced with the item name
+    wrong-flag: "&4cet «Item Flag» n'existe pas !"
+    flag-added: "&aL' «Item Flags» &e%flag% &aa été ajouté."
+    flag-removed: "&cL' «Items Flags» &e%flag% &ca été supprimé."
+
+  enchants:
+    cancel: "&cRetour"
+    title: "&3Fast Item Editor &7- &2Niveau: %level%" # <- %level% will be replaced with the enchant level
+    item-level-min: "&2Niveau min: %level%"
+    item-level-max: "&2Niveau max: %level%"
+    item-minus-10: "&c-10"
+    item-minus-1: "&c-1"
+    item-level: "&2Niveau: %level%"
+    item-level-text: "&3Niveau d'enchantement: %level%"
+    item-plus-1: "&a+1"
+    item-plus-10: "&a+10"

@@ -1,6 +1,7 @@
 package fr.mathilde.lang;
 
 import fr.mathilde.FastItemEditor;
+import fr.mathilde.commands.FastItemEditorCommand.subcommands.SetLangCommand;
 import org.bukkit.ChatColor;
 
 public class Commands {
@@ -15,6 +16,11 @@ public class Commands {
         new SetLore(plugin);
         new SetLoreLine(plugin);
         new Rename(plugin);
+        new ItemFlags(plugin);
+        new Help(plugin);
+        new Enchant(plugin);
+        new Durability(plugin);
+        new SetLangCommand(plugin);
 
 
         permission = plugin.getLangConfig().getString("fastitemeditor-command.permission");
@@ -36,12 +42,23 @@ public class Commands {
     }
 
 
-
     public static class SetLoreLine {
 
+        private static String syntax, invalidLineNumber, lineNumberTooHigh, lineNotFound, emptyLine, loreSet;
         FastItemEditor plugin;
 
-        private static String syntax, invalidLineNumber, lineNumberTooHigh, lineNotFound, emptyLine, loreSet;
+        public SetLoreLine(FastItemEditor fastItemEditor) {
+            this.plugin = fastItemEditor;
+
+            syntax = plugin.getLangConfig().getString("fastitemeditor-command.setloreline.syntax");
+            invalidLineNumber = plugin.getLangConfig().getString("fastitemeditor-command.setloreline.invalid-line-number");
+            lineNumberTooHigh = plugin.getLangConfig().getString("fastitemeditor-command.setloreline.line-number-too-high");
+            lineNotFound = plugin.getLangConfig().getString("fastitemeditor-command.setloreline.line-not-found");
+            emptyLine = plugin.getLangConfig().getString("fastitemeditor-command.setloreline.empty-line");
+            loreSet = plugin.getLangConfig().getString("fastitemeditor-command.setloreline.lore-set");
+
+
+        }
 
         public static String getSyntax() {
             return ChatColor.translateAlternateColorCodes('&', syntax);
@@ -67,25 +84,12 @@ public class Commands {
             return ChatColor.translateAlternateColorCodes('&', loreSet);
         }
 
-        public SetLoreLine(FastItemEditor fastItemEditor) {
-            this.plugin = fastItemEditor;
-
-            syntax = plugin.getLangConfig().getString("fastitemeditor-command.setloreline.syntax");
-            invalidLineNumber = plugin.getLangConfig().getString("fastitemeditor-command.setloreline.invalid-line-number");
-            lineNumberTooHigh = plugin.getLangConfig().getString("fastitemeditor-command.setloreline.line-number-too-high");
-            lineNotFound = plugin.getLangConfig().getString("fastitemeditor-command.setloreline.line-not-found");
-            emptyLine = plugin.getLangConfig().getString("fastitemeditor-command.setloreline.empty-line");
-            loreSet = plugin.getLangConfig().getString("fastitemeditor-command.setloreline.lore-set");
-
-
-        }
-
 
     }
+
     public static class SetLore {
         private static String syntax, loreSet, loreSplitRegex, loreEditCanceled, wordForCancel, blank, alreadyEditingLore, enterEditor;
         FastItemEditor plugin;
-
 
 
         public SetLore(FastItemEditor fastItemEditor) {
@@ -105,6 +109,7 @@ public class Commands {
         public static String getEnterEditor() {
             return ChatColor.translateAlternateColorCodes('&', enterEditor);
         }
+
         public static String getSyntax() {
             return ChatColor.translateAlternateColorCodes('&', syntax);
         }
@@ -135,9 +140,8 @@ public class Commands {
     }
 
     public static class Rename {
-        FastItemEditor plugin;
-
         private static String syntax, renamed;
+        FastItemEditor plugin;
 
         public Rename(FastItemEditor plugin) {
             this.plugin = plugin;
@@ -151,6 +155,91 @@ public class Commands {
 
         public static String getRenamed() {
             return ChatColor.translateAlternateColorCodes('&', renamed);
+        }
+    }
+
+    public static class ItemFlags {
+        private static String syntax;
+        FastItemEditor plugin;
+
+        public ItemFlags(FastItemEditor plugin) {
+            this.plugin = plugin;
+            syntax = plugin.getLangConfig().getString("fastitemeditor-command.itemFlags.syntax");
+        }
+
+        public static String getSyntax() {
+            return ChatColor.translateAlternateColorCodes('&', syntax);
+        }
+
+    }
+
+
+    public static class Help {
+        private static String syntax, helpMesasge;
+        FastItemEditor plugin;
+
+        public Help(FastItemEditor plugin) {
+            this.plugin = plugin;
+            syntax = plugin.getLangConfig().getString("fastitemeditor-command.help.syntax");
+            helpMesasge = plugin.getLangConfig().getString("fastitemeditor-command.help.message");
+        }
+
+        public static String getHelpMesasge() {
+            return ChatColor.translateAlternateColorCodes('&', helpMesasge);
+        }
+
+        public static String getSyntax() {
+            return ChatColor.translateAlternateColorCodes('&', syntax);
+        }
+
+    }
+
+    public static class Enchant {
+        private static String syntax;
+        FastItemEditor plugin;
+
+        public Enchant(FastItemEditor plugin) {
+            this.plugin = plugin;
+            syntax = plugin.getLangConfig().getString("fastitemeditor-command.enchant.syntax");
+        }
+
+        public static String getSyntax() {
+            return ChatColor.translateAlternateColorCodes('&', syntax);
+        }
+
+    }
+
+    public static class Durability {
+        private static String syntax, word_max, word_half, invalid, complete;
+        FastItemEditor plugin;
+
+        public Durability(FastItemEditor plugin) {
+            this.plugin = plugin;
+            syntax = plugin.getLangConfig().getString("fastitemeditor-command.durability.syntax");
+            word_max = plugin.getLangConfig().getString("fastitemeditor-command.durability.word-max");
+            word_half = plugin.getLangConfig().getString("fastitemeditor-command.durability.word-half");
+            invalid = plugin.getLangConfig().getString("fastitemeditor-command.durability.invalid-durability");
+            complete = plugin.getLangConfig().getString("fastitemeditor-command.durability.complete");
+        }
+
+        public static String getSyntax() {
+            return ChatColor.translateAlternateColorCodes('&', syntax);
+        }
+
+        public static String getWord_max() {
+            return ChatColor.translateAlternateColorCodes('&', word_max);
+        }
+
+        public static String getWord_half() {
+            return ChatColor.translateAlternateColorCodes('&', word_half);
+        }
+
+        public static String getInvalid() {
+            return ChatColor.translateAlternateColorCodes('&', invalid);
+        }
+
+        public static String getComplete() {
+            return ChatColor.translateAlternateColorCodes('&', complete);
         }
     }
 }
