@@ -22,7 +22,7 @@ public class RenameCommand extends SubCommands {
 
     @Override
     public String getSyntax() {
-        return "§e/fastitemeditor §arename <name>";
+        return "§e/fastitemeditor §arename [<name>]";
     }
 
     @Override
@@ -30,7 +30,7 @@ public class RenameCommand extends SubCommands {
         ItemStack stack = new ItemBuilder(player.getItemInHand()).toItemStack();
 
         if (args.length == 1) {
-            RenameGUI.openAnvilGui(player, stack.getItemMeta().getDisplayName(), plugin, false);
+            RenameGUI.openAnvilGui(player, plugin, false);
             return;
         }
         StringBuilder name = new StringBuilder();

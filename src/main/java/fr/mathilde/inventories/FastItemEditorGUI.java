@@ -2,12 +2,14 @@ package fr.mathilde.inventories;
 
 import dev.jcsoftware.minecraft.gui.GUI;
 import fr.mathilde.FastItemEditor;
+import fr.mathilde.lang.Inventories;
 import fr.mathilde.utilities.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,12 +80,24 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
         set(10,
                 new ItemBuilder(Material.ITEM_FRAME)
-                        .setName("§3Edit name")
+                        .setName(Inventories.MainGUI.getEditName())
                         .setLore("§7Actual name: §c" + actualName)
                         .toItemStack(),
                 (player, action) -> {
-                    RenameGUI.openAnvilGui(player, actualName, plugin, true);
+
+                    RenameGUI.openAnvilGui(player, plugin, true);
+
+                    BukkitRunnable runnable = new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            player.getOpenInventory().setTitle(Inventories.RenameGUI.getTitle().replace("%name%", stack.getItemMeta().getDisplayName()));
+                        }
+                    };
+
+                    runnable.runTaskLater(plugin, 1);
+
                     return ButtonAction.CANCEL;
+
                 });
 
         List<String> lore = stack.getItemMeta().hasLore() ? stack.getItemMeta().getLore() : new ArrayList<>();

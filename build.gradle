@@ -34,9 +34,9 @@ dependencies {
 }
 
 shadowJar {
-   archiveBaseName.set('FastItemEditor')
-   archiveClassifier.set('')
-   archiveVersion.set(version)
+    archiveBaseName.set('FastItemEditor')
+    archiveClassifier.set('')
+    archiveVersion.set(version)
 }
 
 def targetJavaVersion = 17

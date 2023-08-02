@@ -1,8 +1,8 @@
 package fr.mathilde.inventories;
 
 import fr.mathilde.FastItemEditor;
+import fr.mathilde.lang.Inventories;
 import fr.mathilde.utilities.ItemBuilder;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -17,8 +17,8 @@ public class ItemFlagsGUI {
     public static void openAnvilGui(Player player, FastItemEditor plugin, boolean reOpenGui) {
         net.wesjd.anvilgui.AnvilGUI.Builder builder = new net.wesjd.anvilgui.AnvilGUI.Builder();
 
-        builder.text("Escape for cancel")
-                .title("Edit ItemFlags")
+        builder.text(Inventories.ItemFlagGUI.getCancel())
+                .title(Inventories.ItemFlagGUI.getTitle())
 
                 .plugin(plugin);
 
@@ -48,7 +48,7 @@ public class ItemFlagsGUI {
                         @Override
                         public void run() {
                             String title = stateSnapshot.getPlayer().getOpenInventory().getTitle();
-                            stateSnapshot.getPlayer().getOpenInventory().setTitle("§cWrong item flag !");
+                            stateSnapshot.getPlayer().getOpenInventory().setTitle(Inventories.ItemFlagGUI.getWrong_flag());
 
                             new BukkitRunnable() {
                                 @Override
@@ -60,7 +60,7 @@ public class ItemFlagsGUI {
                     }.runTaskLater(plugin, 1);
                 } else {
                     stateSnapshot.getPlayer().closeInventory();
-                    stateSnapshot.getPlayer().sendMessage(ChatColor.RED + "\"" + item_flag + "\" is not a valid ItemFlag");
+                    stateSnapshot.getPlayer().sendMessage(Inventories.ItemFlagGUI.getWrong_flag());
 
                 }
                 return Collections.emptyList();
@@ -70,11 +70,11 @@ public class ItemFlagsGUI {
             ItemBuilder builderWithFlags = new ItemBuilder(stateSnapshot.getPlayer().getItemInHand());
             if (item.getItemMeta().hasItemFlag(ItemFlag.valueOf(item_flag))) {
                 builderWithFlags.removeFlag(ItemFlag.valueOf(item_flag));
-                stateSnapshot.getPlayer().sendMessage(ChatColor.RED + "ItemFlag " + item_flag + " removed !");
+                stateSnapshot.getPlayer().sendMessage(Inventories.ItemFlagGUI.getFlag_removed().replace("%flag%", item_flag));
 
             } else {
                 builderWithFlags.addFlag(ItemFlag.valueOf(item_flag));
-                stateSnapshot.getPlayer().sendMessage(ChatColor.GREEN + "ItemFlag " + item_flag + " added !");
+                stateSnapshot.getPlayer().sendMessage(Inventories.ItemFlagGUI.getFlag_added().replace("%flag%", item_flag));
             }
 
 
@@ -101,7 +101,6 @@ public class ItemFlagsGUI {
             return false;
         }
 
-        // Parcourir tous les ItemFlag pour vérifier s'il y a une correspondance
         for (ItemFlag flag : ItemFlag.values()) {
             if (flag.name().equalsIgnoreCase(flagName)) {
                 return true;

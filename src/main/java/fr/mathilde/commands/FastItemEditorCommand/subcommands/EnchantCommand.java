@@ -26,7 +26,6 @@ public class EnchantCommand extends SubCommands {
 
     @Override
     public void run(Player player, String[] args) {
-        player.closeInventory();
         FastItemEditor.guiAPI.openGUI(player, new EnchantsGUI(plugin, player.getItemInHand(), player));
 
     }

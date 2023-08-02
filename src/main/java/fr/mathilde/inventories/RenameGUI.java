@@ -1,6 +1,7 @@
 package fr.mathilde.inventories;
 
 import fr.mathilde.FastItemEditor;
+import fr.mathilde.lang.Inventories;
 import fr.mathilde.utilities.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -12,7 +13,7 @@ import static fr.mathilde.inventories.FastItemEditorGUI.openMainGui;
 
 
 public class RenameGUI {
-    public static void openAnvilGui(Player player, String actualName, FastItemEditor plugin, boolean reOpenGui) {
+    public static void openAnvilGui(Player player, FastItemEditor plugin, boolean reOpenGui) {
         net.wesjd.anvilgui.AnvilGUI.Builder builder = new net.wesjd.anvilgui.AnvilGUI.Builder()
                 .onClose(stateSnapshot -> {
                     player.closeInventory();
@@ -26,8 +27,7 @@ public class RenameGUI {
                         runnable.runTaskLater(plugin, 1);
                 })
 
-                .text("Escape for cancel")
-                .title("§3Rename §2" + actualName)
+                .text(Inventories.RenameGUI.getCancel())
                 .itemLeft(new ItemBuilder(player.getItemInHand().getType()).toItemStack())
                 .plugin(plugin);
 
@@ -48,7 +48,9 @@ public class RenameGUI {
 
         });
 
-        builder.open(player);
+
+        builder.title(Inventories.RenameGUI.getTitle()).open(player);
+
 
     }
 }

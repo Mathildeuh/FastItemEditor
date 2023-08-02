@@ -2,6 +2,7 @@ package fr.mathilde.commands.FastItemEditorCommand;
 
 import fr.mathilde.FastItemEditor;
 import fr.mathilde.commands.FastItemEditorCommand.subcommands.*;
+import fr.mathilde.lang.Commands;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -33,8 +34,10 @@ public class FieCommand implements CommandExecutor, TabCompleter {
         subcommands.put("help", new HelpCommand());
         subcommands.put("rename", new RenameCommand(plugin));
         subcommands.put("setlore", new SetLoreCommand(plugin));
+        subcommands.put("setloreline", new SetLoreLineCommand(plugin));
         subcommands.put("enchant", new EnchantCommand(plugin));
         subcommands.put("itemflags", new ItemFlagsCommand(plugin));
+        subcommands.put("setdurability", new DurabilityCommand(plugin));
 
     }
 
@@ -46,10 +49,15 @@ public class FieCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        if (!player.hasPermission(Commands.getPermission())) {
+            player.sendMessage(Commands.getNoPermission());
+            return true;
+        }
+
         ItemStack itemInHand = player.getItemInHand();
 
         if (itemInHand.getType() == Material.AIR) {
-            player.sendMessage("You must hold an item in your hand to use this command.");
+            player.sendMessage(Commands.getNeedToHaveItemInHand());
             return true;
         }
 
@@ -64,6 +72,7 @@ public class FieCommand implements CommandExecutor, TabCompleter {
         } else {
             HelpCommand.sendHelpMessage(player);
         }
+
 
         return true;
     }

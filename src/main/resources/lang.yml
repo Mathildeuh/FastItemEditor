@@ -1,0 +1,35 @@
+fastitemeditor-command:
+  permission: "fastitemeditor.use"
+  no-permission: "&cYou don't have the permission to use this command."
+
+need-to-have-item-in-hand: "&cYou must hold an item in your hand to use this command."
+
+inventories:
+  main:
+    title: "&3FastItemEditor &7- %item_name%"
+    items:
+      editname: "&3Edit Name"
+      editlore: "&3Edit Lore"
+      editenchants: "&3Edit Enchants"
+      edititemflags: "&3ItemFlags"
+      setunbreakable: "&3Unbreakable ?"
+
+      close: "&cClose"
+    lores:
+      editname: "&7Actual name: &c%name%"
+      editlore: "&7Actual lore: "
+      editenchants: "&7Actual enchantments:"
+      edititemflags: "&7Actual flags:"
+      setunbreakable: "&7Actual value: &c%value%"
+
+  rename:
+    cancel: "Escape for cancel" # Color can't work here
+    title: "&3Rename %name%" # <- %name%   will be replaced with the item name
+
+  itemflags:
+    cancel: "Escape for cancel" # Color can't work here
+    title: "&3Edit ItemFlags" # <- %name%   will be replaced with the item name
+    wrong-flag: "&4This item flag doesn't exist !"
+    flag-added: "&aThe flag &e%flag% &ahas been added."
+    flag-removed: "&cThe flag &e%flag% &ahas been removed."
+

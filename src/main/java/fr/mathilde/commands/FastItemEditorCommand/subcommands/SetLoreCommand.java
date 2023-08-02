@@ -26,7 +26,7 @@ public class SetLoreCommand extends SubCommands {
 
     @Override
     public String getSyntax() {
-        return "§e/fastitemeditor §asetlore [<lore>] <- (whit ; for new line and %blank for blank line)";
+        return "§e/fastitemeditor §asetlore [<lore>]";
     }
 
 

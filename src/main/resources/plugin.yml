@@ -8,6 +8,4 @@ commands:
   fastitemeditor:
     description: "Opens the FastItemEditor GUI"
     usage: /<command>
-    aliases: [fie]
-    permission: fastitemeditor.use
-    permission-message: "You don't have the permission to use this command."
+    aliases: [ fie ]
