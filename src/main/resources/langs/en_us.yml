@@ -77,7 +77,7 @@ inventories:
     title: "&3Edit ItemFlags" # <- %name%   will be replaced with the item name
     wrong-flag: "&4This item flag doesn't exist !"
     flag-added: "&aThe flag &e%flag% &ahas been added."
-    flag-removed: "&cThe flag &e%flag% &ahas been removed."
+    flag-removed: "&cThe flag &e%flag% &chas been removed."
 
   enchants:
     cancel: "&cBack"
