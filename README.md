@@ -3,7 +3,9 @@
 ## This is a simple GUI based item editor.
 
 SpigotMC link: https://www.spigotmc.org/resources/fastitemeditor-best-free-and-easy-item-editor.111698/
+
 Modrinth link: https://modrinth.com/plugin/fastitemeditor
+
 CurseForge link: https://legacy.curseforge.com/minecraft/bukkit-plugins/fastitemeditor
 
 With this Spigot plugin you can edit the following things:
