@@ -2,6 +2,7 @@ package fr.mathilde.inventories;
 
 import dev.jcsoftware.minecraft.gui.GUI;
 import fr.mathilde.FastItemEditor;
+import fr.mathilde.lang.Commands;
 import fr.mathilde.lang.Inventories;
 import fr.mathilde.utilities.ItemBuilder;
 import org.bukkit.Material;
@@ -37,13 +38,12 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
         String relocalizedName = player.getItemInHand().getType().name().toLowerCase().replaceAll("_", " ");
 
         player.getOpenInventory()
-                .setTitle("§3Fast Item Editor §7- §2" + relocalizedName);
+                .setTitle(Inventories.MainGUI.getTitle().replace("%item_name%", relocalizedName));
 
     }
 
     public static void editLore(Player player, ItemStack stack, Boolean openMainGui) {
-        player.sendMessage("§fWrite your lore in the chat. Type §ccancel §fto cancel.");
-        player.sendMessage("§fFormat: line1; line2; line3; ...");
+        player.sendMessage(Commands.SetLore.getEnterEditor());
         playerLoreEdit.put(player, stack);
         if (!openMainGui)
             dontReOpen.add(player);
@@ -54,11 +54,12 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
         if (item != null && item.hasItemMeta() && item.getItemMeta().hasEnchants()) {
             ItemMeta itemMeta = item.getItemMeta();
-            formattedEnchantments.add("§7Actual enchantments:");
+            formattedEnchantments.add(Inventories.MainGUI.getEditEnchants());
 
             for (Enchantment enchantment : itemMeta.getEnchants().keySet()) {
                 int level = itemMeta.getEnchantLevel(enchantment);
-                String enchantName = "§c- §a" + enchantment.getKey().getKey() + " §7: §e";
+                String enchantName = Inventories.MainGUI.getEnchantFormat().replace("%enchant%", enchantment.getKey().getKey());
+//                String enchantName = "§c- §a" + enchantment.getKey().getKey() + " §7: §e";
                 String formattedEnchant = formatEnchantment(enchantName, level);
                 formattedEnchantments.add(formattedEnchant);
             }
@@ -81,7 +82,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
         set(10,
                 new ItemBuilder(Material.ITEM_FRAME)
                         .setName(Inventories.MainGUI.getEditName())
-                        .setLore("§7Actual name: §c" + actualName)
+                        .setLore(Inventories.MainGUI.getLoreeditname().replace("%name%", actualName))
                         .toItemStack(),
                 (player, action) -> {
 
@@ -105,19 +106,19 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
         for (int i = 0; i < lore.size(); i++) {
             String s = lore.get(i);
             if (s.equalsIgnoreCase(""))
-                s = "§7§oEmpty line";
+                s = Inventories.MainGUI.getEmpty_line();
 
-            lore.set(i, "§c- §r" + s);
+            lore.set(i, Inventories.MainGUI.getLore_format().replace("%line%", s));
 
         }
         if (lore.isEmpty()) {
-            lore.add("§cNo lore");
+            lore.add(Inventories.MainGUI.getEmpty_lore());
         }
-        lore.add(0, "§7Actual lores: ");
+        lore.add(0, Inventories.MainGUI.getLoreeditlore());
 
         set(11,
                 new ItemBuilder(Material.WRITABLE_BOOK)
-                        .setName("§3Edit lores")
+                        .setName(Inventories.MainGUI.getEditLore())
                         .setLore(lore)
 
                         .toItemStack(),
@@ -128,13 +129,13 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
         List<String> formattedEnchantments = formatEnchantments(stack);
         if (formattedEnchantments.isEmpty()) {
-            formattedEnchantments.add("§7Actual enchantments:");
+            formattedEnchantments.add(Inventories.MainGUI.getLoreeditenchant());
 
-            formattedEnchantments.add("§cNo enchantments");
+            formattedEnchantments.add(Inventories.MainGUI.getNoEnchants());
         }
 
         ItemStack enchants = new ItemBuilder(Material.ENCHANTING_TABLE)
-                .setName("§3Edit enchants")
+                .setName(Inventories.MainGUI.getEditEnchants())
                 .setLore(formattedEnchantments)
                 .toItemStack();
 
@@ -147,8 +148,8 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
         set(13,
                 new ItemBuilder(Material.GLOW_ITEM_FRAME)
-                        .setName("§3Edit Item Flags")
-                        .setLore("§7Actual flags: §c" + stack.getItemMeta().getItemFlags())
+                        .setName(Inventories.MainGUI.getEditItemFlags())
+                        .setLore(Inventories.MainGUI.getloreEdititemflags().replace("%flags%", stack.getItemMeta().getItemFlags().toString()))
 
                         .toItemStack(),
                 (player, item) -> {
@@ -158,11 +159,11 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
         set(14,
                 new ItemBuilder(Material.STRUCTURE_VOID)
-                        .setName("§3Unbreakable ?")
-                        .setLore("§7Actual value: §c" + stack.getItemMeta().isUnbreakable())
+                        .setName(Inventories.MainGUI.getSetUnbreakable())
+                        .setLore(Inventories.MainGUI.getLoreSetUnbreakable().replace("%value%", String.valueOf(stack.getItemMeta().isUnbreakable())))
                         .toItemStack(),
                 (player, action) -> {
-                    ItemStack item = new ItemBuilder(stack).setUnbreakable(!stack.getItemMeta().isUnbreakable()).setDurability((short) 190000).toItemStack();
+                    ItemStack item = new ItemBuilder(stack).setUnbreakable(!stack.getItemMeta().isUnbreakable()).toItemStack();
                     player.setItemInHand(item);
                     createInventory();
                     return ButtonAction.CANCEL;
@@ -173,7 +174,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
         set(26,
                 new ItemBuilder(Material.BARRIER)
-                        .setName("§cClose")
+                        .setName(Inventories.MainGUI.getClose())
                         .toItemStack(),
                 (player, action) -> ButtonAction.CLOSE_GUI);
 

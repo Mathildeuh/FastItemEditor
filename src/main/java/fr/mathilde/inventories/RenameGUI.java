@@ -49,7 +49,7 @@ public class RenameGUI {
         });
 
 
-        builder.title(Inventories.RenameGUI.getTitle()).open(player);
+        builder.title(Inventories.RenameGUI.getTitle().replace("%name%", player.getItemInHand().getItemMeta().getDisplayName())).open(player);
 
 
     }

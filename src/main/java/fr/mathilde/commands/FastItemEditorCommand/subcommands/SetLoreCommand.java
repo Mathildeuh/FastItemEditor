@@ -3,6 +3,7 @@ package fr.mathilde.commands.FastItemEditorCommand.subcommands;
 import fr.mathilde.FastItemEditor;
 import fr.mathilde.commands.FastItemEditorCommand.SubCommands;
 import fr.mathilde.inventories.FastItemEditorGUI;
+import fr.mathilde.lang.Commands;
 import fr.mathilde.utilities.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -26,14 +27,14 @@ public class SetLoreCommand extends SubCommands {
 
     @Override
     public String getSyntax() {
-        return "§e/fastitemeditor §asetlore [<lore>]";
+        return Commands.SetLore.getSyntax();
     }
 
 
     @Override
     public void run(Player player, String[] args) {
         if (FastItemEditorGUI.playerLoreEdit.containsKey(player)) {
-            player.sendMessage("§cYou are already editing a lore, type §e\"cancel\" §cto cancel it");
+            player.sendMessage(Commands.SetLore.getAlreadyEditingLore());
             return;
         }
         if (args.length >= 2) {
@@ -42,12 +43,12 @@ public class SetLoreCommand extends SubCommands {
             StringJoiner loreString = new StringJoiner(" ");
 
             for (int i = 1; i < args.length; i++) {
-                loreString.add(args[i].replaceAll("%blank", ""));
+                loreString.add(args[i].replaceAll(Commands.SetLore.getLoreSplitRegex(), ""));
             }
 
 
-            for (String s : loreString.toString().split("; ")) {
-                lore.add(ChatColor.translateAlternateColorCodes('&', s.replaceAll("%blank", "")));
+            for (String s : loreString.toString().split(Commands.SetLore.getLoreSplitRegex())) {
+                lore.add(ChatColor.translateAlternateColorCodes('&', s.replaceAll(Commands.SetLore.getBlank(), "")));
             }
 
 
@@ -55,7 +56,7 @@ public class SetLoreCommand extends SubCommands {
 
 
             player.setItemInHand(stack);
-            player.sendMessage("§aLore set to " + loreString);
+            player.sendMessage(Commands.SetLore.getLoreSet());
             return;
         }
 

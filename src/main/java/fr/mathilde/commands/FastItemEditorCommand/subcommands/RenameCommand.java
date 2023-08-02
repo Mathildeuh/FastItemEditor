@@ -3,6 +3,7 @@ package fr.mathilde.commands.FastItemEditorCommand.subcommands;
 import fr.mathilde.FastItemEditor;
 import fr.mathilde.commands.FastItemEditorCommand.SubCommands;
 import fr.mathilde.inventories.RenameGUI;
+import fr.mathilde.lang.Commands;
 import fr.mathilde.utilities.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -22,7 +23,7 @@ public class RenameCommand extends SubCommands {
 
     @Override
     public String getSyntax() {
-        return "§e/fastitemeditor §arename [<name>]";
+        return Commands.Rename.getSyntax();
     }
 
     @Override
@@ -44,6 +45,6 @@ public class RenameCommand extends SubCommands {
 
         player.setItemInHand(renamedStack);
         System.out.println(renamedStack.getItemMeta().getDisplayName());
-        player.sendMessage("§aItem renamed to §e" + name);
+        player.sendMessage(Commands.Rename.getRenamed().replace("%name%", name));
     }
 }

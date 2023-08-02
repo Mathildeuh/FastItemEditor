@@ -2,24 +2,52 @@ fastitemeditor-command:
   permission: "fastitemeditor.use"
   no-permission: "&cYou don't have the permission to use this command."
 
+  setlore:
+    syntax: "§e/fastitemeditor §asetlore [<lore>]"
+    already-editing: "&cYou are already editing the lore of this item."
+    lore-set: "&aThe lore has been set."
+    lore-split-regex: "; "
+    lore-edit-canceled: "&cThe lore edit has been canceled."
+    word-for-cancel: "cancel" # NO COLORS HERE
+    blank: "%blank"
+    enter-editor: "§fWrite your lore in the chat. Type §ccancel §fto cancel.\n§fFormat: line1; line2; line3; ..."
+  setloreline:
+    syntax: "§e/fastitemeditor §asetloreline <line> <text>"
+    invalid-line-number: "&cInvalid line number."
+    line-number-too-high: "&cThe line number is too high."
+    line-not-found: "§aLine not found, adding one line to the lore."
+    empty-line: "new empty line"
+    lore-set: "&aLore line &e%i% &ahas been set to &e%line%."
+  rename:
+    syntax: "§e/fastitemeditor §arename [<name>]"
+    item-renamed: "&aThe item has been renamed to &e%name%&a."
+
 need-to-have-item-in-hand: "&cYou must hold an item in your hand to use this command."
 
 inventories:
   main:
-    title: "&3FastItemEditor &7- %item_name%"
+    title: "&3FastItemEditor &7- &2%item_name%"
     items:
       editname: "&3Edit Name"
       editlore: "&3Edit Lore"
       editenchants: "&3Edit Enchants"
-      edititemflags: "&3ItemFlags"
+      edititemflags: "&3Edit Item Flags"
       setunbreakable: "&3Unbreakable ?"
 
       close: "&cClose"
     lores:
       editname: "&7Actual name: &c%name%"
-      editlore: "&7Actual lore: "
+      editlore: "&7Actual lore:"
+
+      lore-format: "&c- &r %line%"
+      empty-lore: "&cEmpty lore"
+      empty-line: "&7Empty line"
+
       editenchants: "&7Actual enchantments:"
-      edititemflags: "&7Actual flags:"
+      no-enchants: "&cNo enchantments"
+      enchants-format: "&c- &a%enchant% &7: &e%level%"
+
+      edititemflags: "&7Actual flags: &c%flags%"
       setunbreakable: "&7Actual value: &c%value%"
 
   rename:
@@ -33,3 +61,14 @@ inventories:
     flag-added: "&aThe flag &e%flag% &ahas been added."
     flag-removed: "&cThe flag &e%flag% &ahas been removed."
 
+  enchants:
+    cancel: "§cBack"
+    title: "§3Fast Item Editor §7- §2Level: %level%" # <- %level% will be replaced with the enchant level
+    item-level-min: "§2Level min: %level%"
+    item-level-max: "§2Level max: %level%"
+    item-minus-10: "§c-10"
+    item-minus-1: "§c-1"
+    item-level: "§2Level: %level%"
+    item-level-text: "§3Enchantement level: %level%"
+    item-plus-1: "§a+1"
+    item-plus-10: "§a+10"

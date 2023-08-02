@@ -54,6 +54,7 @@ public final class FastItemEditor extends JavaPlugin {
         new Inventories.RenameGUI(this);
         new Inventories.ItemFlagGUI(this);
         new Inventories.MainGUI(this);
+        new Inventories.EnchantGUI(this);
 
     }
 

@@ -2,6 +2,7 @@ package fr.mathilde.inventories;
 
 import dev.jcsoftware.minecraft.gui.GUI;
 import fr.mathilde.FastItemEditor;
+import fr.mathilde.lang.Inventories;
 import fr.mathilde.utilities.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -43,7 +44,7 @@ public class EnchantsGUI extends GUI<FastItemEditor> {
 
     private void createInventory(Player pl) {
         Bukkit.getScheduler().runTaskLaterAsynchronously(plugin,
-                () -> pl.getOpenInventory().setTitle("§3Fast Item Editor §7- §2Level: " + enchantLevel), 1);
+                () -> pl.getOpenInventory().setTitle(Inventories.EnchantGUI.getTitle().replace("%level%", enchantLevel + "")), 1);
 
         int i = 0;
 
@@ -71,44 +72,44 @@ public class EnchantsGUI extends GUI<FastItemEditor> {
             i++;
         }
 
-        set(46, new ItemBuilder(Material.BLAZE_ROD, 1).setName("§2Level min: 1").toItemStack(), (player, action) -> {
+        set(46, new ItemBuilder(Material.BLAZE_ROD).setName(Inventories.EnchantGUI.getItem_level_min().replace("%level%", 1 + "")).toItemStack(), (player, action) -> {
             enchantLevel = 1;
             createInventory(player);
             return ButtonAction.CANCEL;
         });
 
-        set(47, new ItemBuilder(Material.ARROW, 10).setName("§4-10").toItemStack(), (player, action) -> {
+        set(47, new ItemBuilder(Material.ARROW, 10).setName(Inventories.EnchantGUI.getItem_minus_10()).toItemStack(), (player, action) -> {
             setEnchantLevel(-10);
             createInventory(player);
             return ButtonAction.CANCEL;
         });
-        set(48, new ItemBuilder(Material.ARROW).setName("§c-1").toItemStack(), (player, action) -> {
+        set(48, new ItemBuilder(Material.ARROW).setName(Inventories.EnchantGUI.getItem_minus_1()).toItemStack(), (player, action) -> {
             setEnchantLevel(-1);
             createInventory(player);
             return ButtonAction.CANCEL;
         });
 
-        set(49, new ItemBuilder(Material.EXPERIENCE_BOTTLE, enchantLevel).setName("§3Enchantement level: " + enchantLevel).toItemStack());
+        set(49, new ItemBuilder(Material.EXPERIENCE_BOTTLE, enchantLevel).setName(Inventories.EnchantGUI.getItem_level().replace("%level%", enchantLevel + "")).toItemStack());
 
-        set(50, new ItemBuilder(Material.ARROW).setName("§a+1").toItemStack(), (player, action) -> {
+        set(50, new ItemBuilder(Material.ARROW).setName(Inventories.EnchantGUI.getItem_plus_1()).toItemStack(), (player, action) -> {
             setEnchantLevel(1);
             createInventory(player);
             return ButtonAction.CANCEL;
         });
-        set(51, new ItemBuilder(Material.ARROW, 10).setName("§2+10").toItemStack(), (player, action) -> {
+        set(51, new ItemBuilder(Material.ARROW, 10).setName(Inventories.EnchantGUI.getItem_plus_10()).toItemStack(), (player, action) -> {
             setEnchantLevel(10);
             createInventory(player);
             return ButtonAction.CANCEL;
         });
 
-        set(52, new ItemBuilder(Material.BLAZE_ROD, 64).setName("§2Level max: 255").toItemStack(), (player, action) -> {
+        set(52, new ItemBuilder(Material.BLAZE_ROD, 64).setName(Inventories.EnchantGUI.getItem_level_max().replace("%level%", 255 + "")).toItemStack(), (player, action) -> {
             enchantLevel = 255;
             createInventory(player);
             return ButtonAction.CANCEL;
         });
 
 
-        set(53, new ItemBuilder(Material.BARRIER).setName("§cBack").toItemStack(), (player, action) -> {
+        set(53, new ItemBuilder(Material.BARRIER).setName(Inventories.EnchantGUI.getCancel()).toItemStack(), (player, action) -> {
             openMainGui(player, plugin);
             return ButtonAction.CANCEL;
         });

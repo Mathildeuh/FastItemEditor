@@ -2,6 +2,7 @@ package fr.mathilde.commands.FastItemEditorCommand.subcommands;
 
 import fr.mathilde.FastItemEditor;
 import fr.mathilde.commands.FastItemEditorCommand.SubCommands;
+import fr.mathilde.lang.Commands;
 import fr.mathilde.utilities.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -25,13 +26,12 @@ public class SetLoreLineCommand extends SubCommands {
 
     @Override
     public String getSyntax() {
-        return "§e/fastitemeditor §asetloreline <line> <text>";
+        return Commands.SetLoreLine.getSyntax();
     }
 
     @Override
     public void run(Player player, String[] args) {
         if (args.length <= 2) {
-            player.sendMessage("§cInvalid syntax.");
             player.sendMessage(getSyntax());
             return;
         }
@@ -39,7 +39,7 @@ public class SetLoreLineCommand extends SubCommands {
         try {
             i = Integer.parseInt(args[1]);
         } catch (NumberFormatException e) {
-            player.sendMessage("§cInvalid line number.");
+            player.sendMessage(Commands.SetLoreLine.getInvalidLineNumber());
             return;
         }
 
@@ -48,15 +48,15 @@ public class SetLoreLineCommand extends SubCommands {
             sb.append(args[j]).append(" ");
         }
         String text = ChatColor.translateAlternateColorCodes('&', sb.toString().trim());
-        if (text.equalsIgnoreCase("%blank")) {
+        if (text.equalsIgnoreCase(Commands.SetLore.getBlank())) {
             text = "";
         }
         if (i < 1) {
-            player.sendMessage("§cInvalid line number.");
+            player.sendMessage(Commands.SetLoreLine.getInvalidLineNumber());
             return;
         }
         if (i > 64) {
-            player.sendMessage("§cLine number too high.");
+            player.sendMessage(Commands.SetLoreLine.getLineNumberTooHigh());
             return;
         }
         ItemBuilder stack = new ItemBuilder(player.getItemInHand());
@@ -66,15 +66,15 @@ public class SetLoreLineCommand extends SubCommands {
         try {
             lore.set(i - 1, text);
         } catch (IndexOutOfBoundsException e) {
-            player.sendMessage("§aLine not found, adding one line to the lore.");
+            player.sendMessage(Commands.SetLoreLine.getLineNotFound());
             lore.add(text);
             i = lore.size();
         }
         if (text.isEmpty()) {
-            text = "new empty line";
+            text = Commands.SetLoreLine.getEmptyLine();
         }
         player.getInventory().setItemInMainHand(stack.setLore(lore).toItemStack());
-        player.sendMessage("§aLore line §e" + i + "§a set to §e" + text);
+        player.sendMessage(Commands.SetLoreLine.getLoreSet().replace("%i%", String.valueOf(i)).replace("%line%", text));
 
 
     }

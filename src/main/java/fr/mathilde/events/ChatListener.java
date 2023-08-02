@@ -2,6 +2,7 @@ package fr.mathilde.events;
 
 import fr.mathilde.FastItemEditor;
 import fr.mathilde.inventories.FastItemEditorGUI;
+import fr.mathilde.lang.Commands;
 import fr.mathilde.utilities.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -28,11 +29,11 @@ public class ChatListener implements Listener {
         if (FastItemEditorGUI.playerLoreEdit.containsKey(e.getPlayer())) {
             e.setCancelled(true);
 
-            if (e.getMessage().equalsIgnoreCase("cancel")) {
+            if (e.getMessage().equalsIgnoreCase(Commands.SetLore.getWordForCancel())) {
                 FastItemEditorGUI.playerLoreEdit.remove(e.getPlayer());
                 if (FastItemEditorGUI.dontReOpen.contains(e.getPlayer())) {
                     FastItemEditorGUI.dontReOpen.remove(e.getPlayer());
-                    e.getPlayer().sendMessage("§cLore edit canceled !");
+                    e.getPlayer().sendMessage(Commands.SetLore.getLoreEditCanceled());
 
                     return;
                 }
@@ -43,10 +44,10 @@ public class ChatListener implements Listener {
             }
             List<String> lore = new ArrayList<>();
 
-            String[] message = e.getMessage().split("; ");
+            String[] message = e.getMessage().split(Commands.SetLore.getLoreSplitRegex());
 
             for (String s : message) {
-                lore.add(ChatColor.translateAlternateColorCodes('&', s.replaceAll("%blank", "")));
+                lore.add(ChatColor.translateAlternateColorCodes('&', s.replaceAll(Commands.SetLore.getBlank(), "")));
             }
 
             ItemStack item = new ItemBuilder(FastItemEditorGUI.playerLoreEdit.get(e.getPlayer())).setLore(lore).toItemStack();
@@ -55,7 +56,7 @@ public class ChatListener implements Listener {
             e.getPlayer().getInventory().setItemInMainHand(item);
             if (FastItemEditorGUI.dontReOpen.contains(e.getPlayer())) {
                 FastItemEditorGUI.dontReOpen.remove(e.getPlayer());
-                e.getPlayer().sendMessage("§aLore set !");
+                e.getPlayer().sendMessage(Commands.SetLore.getLoreSet());
                 return;
             }
             reOpenMainGui(e.getPlayer(), plugin);
