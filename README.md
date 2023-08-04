@@ -15,6 +15,7 @@ With this Spigot plugin you can edit the following things:
 - Enchantments
 - Item Flags
 - Toggle unbreakable item
+- Change durability 
 
 # Commands:
 ## For all this commands, an item in your hand is required !
