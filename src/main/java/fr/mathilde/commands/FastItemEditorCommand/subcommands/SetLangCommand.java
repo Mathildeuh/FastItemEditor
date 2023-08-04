@@ -40,7 +40,7 @@ public class SetLangCommand extends SubCommands {
         }
 
 
-        switch (lang){
+        switch (lang) {
             case EN_US -> {
                 setLang("en_us");
                 player.sendMessage("§aLanguage set to English (US).");
@@ -48,6 +48,10 @@ public class SetLangCommand extends SubCommands {
             case FR_FR -> {
                 setLang("fr_fr");
                 player.sendMessage("§aLangue définie sur Français (FR).");
+            }
+            case ES_ES -> {
+                setLang("es_es");
+                player.sendMessage("§aIdioma establecido en Español (ES).");
             }
             case CUSTOM -> {
                 setLang("custom");
@@ -58,7 +62,7 @@ public class SetLangCommand extends SubCommands {
         plugin.createLangConfig();
     }
 
-    public void setLang(String lang){
+    public void setLang(String lang) {
         plugin.getConfig().set("lang", lang);
         plugin.saveConfig();
         plugin.reloadConfig();

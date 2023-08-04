@@ -5,7 +5,7 @@ import java.io.File;
 public enum Languages {
 
 
-    CUSTOM("langs/custom.yml", "Custom"), FR_FR("langs/fr_fr.yml", "Français"), EN_US("langs/en_us.yml", "English");
+    CUSTOM("langs/custom.yml", "Custom"), FR_FR("langs/fr_fr.yml", "Français"), EN_US("langs/en_us.yml", "English"), ES_ES("langs/es_es.yml", "Spanish");
 
     private final String langName;
     private final File file;

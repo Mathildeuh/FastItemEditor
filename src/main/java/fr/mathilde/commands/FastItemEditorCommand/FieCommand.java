@@ -51,15 +51,8 @@ public class FieCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        if (!player.hasPermission("fie.use")) {
-            player.sendMessage("test");
-            return true;
-        }
-
-        ItemStack itemInHand = player.getItemInHand();
-
-        if (itemInHand.getType() == Material.AIR) {
-            player.sendMessage(Commands.getNeedToHaveItemInHand());
+        if (!player.hasPermission(Commands.getPermission())) {
+            player.sendMessage(Commands.getNoPermission());
             return true;
         }
 
@@ -67,6 +60,18 @@ public class FieCommand implements CommandExecutor, TabCompleter {
             openMainGui(player, plugin);
             return true;
         }
+        ItemStack itemInHand = player.getItemInHand();
+
+        if (!args[0].equalsIgnoreCase("setlang")) {
+
+            if (itemInHand.getType() == Material.AIR) {
+                player.sendMessage(Commands.getNeedToHaveItemInHand());
+                return true;
+            }
+        }
+
+
+
 
         if (subcommands.containsKey(args[0])) {
             subcommands.get(args[0]).run(player, args);

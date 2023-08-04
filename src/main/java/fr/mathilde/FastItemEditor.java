@@ -46,7 +46,7 @@ public final class FastItemEditor extends JavaPlugin {
     }
 
     public void createLangConfig() {
-        acutalLang = Languages.valueOf(getConfig().getString("lang").toUpperCase() );
+        acutalLang = Languages.valueOf(getConfig().getString("lang").toUpperCase());
         File langConfigFile = acutalLang.getFile();
         if (!langConfigFile.exists()) {
             langConfigFile.getParentFile().mkdirs();

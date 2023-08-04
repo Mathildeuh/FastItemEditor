@@ -68,7 +68,7 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
 
     private static String formatEnchantment(String enchantName, int level) {
         String format = Inventories.MainGUI.getEnchantFormat();
-        return format.replace("%enchant%", enchantName).replace("%level%",  ((level > 0) ? String.valueOf(level) : ""));
+        return format.replace("%enchant%", enchantName).replace("%level%", ((level > 0) ? String.valueOf(level) : ""));
     }
 
 
