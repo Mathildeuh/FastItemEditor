@@ -4,7 +4,9 @@ import fr.mathilde.FastItemEditor;
 import fr.mathilde.inventories.FastItemEditorGUI;
 import fr.mathilde.lang.Commands;
 import fr.mathilde.utilities.ItemBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -13,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-import static fr.mathilde.events.FieGuiListener.reOpenMainGui;
+import static fr.mathilde.inventories.FastItemEditorGUI.openMainGui;
 
 public class ChatListener implements Listener {
     FastItemEditor plugin;
@@ -21,6 +23,16 @@ public class ChatListener implements Listener {
     public ChatListener(FastItemEditor fastItemEditor) {
 
         this.plugin = fastItemEditor;
+
+    }
+
+    public void reOpenMainGui(Player player, FastItemEditor plugin) {
+        Bukkit.getScheduler().runTask(plugin, () -> {
+
+            FastItemEditorGUI.playerLoreEdit.remove(player);
+            openMainGui(player, plugin);
+
+        });
 
     }
 
