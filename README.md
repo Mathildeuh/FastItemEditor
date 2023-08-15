@@ -15,9 +15,10 @@ With this Spigot plugin you can edit the following things:
 - Enchantments
 - Item Flags
 - Toggle unbreakable item
-- Change durability 
+- Change durability
 
 # Commands:
+
 ## For all this commands, an item in your hand is required !
 
 /fie : Open main GUI
@@ -41,9 +42,11 @@ With this Spigot plugin you can edit the following things:
 fie = fastitemeditor (It's the same command)
 
 ## Permissions:
+
 The only permission you need it's: fastitemeditor.use
 
 ### Screens:
+
 Main GUI:
 ![Main Screen](https://github.com/Mathildeuh/FastItemEditor/blob/master/img/SpigotLanding.png?raw=true)
 

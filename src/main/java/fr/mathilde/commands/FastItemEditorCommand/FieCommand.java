@@ -71,8 +71,6 @@ public class FieCommand implements CommandExecutor, TabCompleter {
         }
 
 
-
-
         if (subcommands.containsKey(args[0])) {
             subcommands.get(args[0]).run(player, args);
             return true;

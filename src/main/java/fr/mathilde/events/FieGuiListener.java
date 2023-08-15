@@ -8,7 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 
-
 public class FieGuiListener implements Listener {
 
 
@@ -17,7 +16,6 @@ public class FieGuiListener implements Listener {
     public FieGuiListener(FastItemEditor fastItemEditor) {
         this.plugin = fastItemEditor;
     }
-
 
 
     @EventHandler
