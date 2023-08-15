@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'fr.Mathilde'
-version = '1.1.1-SNAPSHOT'
+version = '1.1.2-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -21,15 +21,16 @@ repositories {
         url = "https://repo.codemc.io/repository/maven-snapshots/"
     }
     maven {
-        name = "jitpack.io"
+        name = "jitpack"
         url = "https://jitpack.io"
     }
 }
 
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT"
-    implementation "com.github.JordanOsterberg:MCGUIAPI:1.0.2"
+    implementation "org.bstats:bstats-bukkit:3.0.2"
 
+    implementation "com.github.JordanOsterberg:MCGUIAPI:1.0.2"
     implementation "net.wesjd:anvilgui:1.7.0-SNAPSHOT"
 
 }
@@ -38,6 +39,8 @@ shadowJar {
     archiveBaseName.set('FastItemEditor')
     archiveClassifier.set('')
     archiveVersion.set(version)
+    relocate 'org.bstats', 'fr.Mathilde.bstats'
+
 }
 
 def targetJavaVersion = 17

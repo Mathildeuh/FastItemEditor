@@ -7,6 +7,7 @@ import fr.mathilde.events.FieGuiListener;
 import fr.mathilde.lang.Commands;
 import fr.mathilde.lang.Inventories;
 import fr.mathilde.lang.Languages;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -42,7 +43,12 @@ public final class FastItemEditor extends JavaPlugin {
         // Events
         getServer().getPluginManager().registerEvents(new FieGuiListener(this), this);
         getServer().getPluginManager().registerEvents(new ChatListener(this), this);
+        bStats();
+    }
 
+    private void bStats() {
+        int pluginId = 19518; // <-- Replace with the id of your plugin!
+        new Metrics(this, pluginId);
     }
 
     public void createLangConfig() {
