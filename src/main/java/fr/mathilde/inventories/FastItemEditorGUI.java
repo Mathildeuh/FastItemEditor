@@ -127,7 +127,6 @@ public class FastItemEditorGUI extends GUI<FastItemEditor> {
         List<String> formattedEnchantments = formatEnchantments(stack);
         if (formattedEnchantments.isEmpty()) {
             formattedEnchantments.add(Inventories.MainGUI.getLoreEditEnchant());
-            System.out.println(Inventories.MainGUI.getLoreEditEnchant());
 
             formattedEnchantments.add(Inventories.MainGUI.getNoEnchants());
         }
